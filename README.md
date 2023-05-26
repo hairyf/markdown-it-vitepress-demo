@@ -105,6 +105,7 @@ The `demo-container` component will receive relevant information about the demo.
 <script lang="ts" setup>
 const props = defineProps<{
   sfcTsCode: string
+  // if using ts, both sfcTsCode and sfcJsCode will exist
   sfcJsCode: string
   highlightedHtml: string
   descriptionHtml?: string
