@@ -1,19 +1,22 @@
 {
-  "name": "pkg-name",
+  "name": "markdown-it-vitepress-demo",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.9",
   "packageManager": "pnpm@8.1.1",
   "description": "",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "author": "Hairyf <wwu710632@gmail.com>",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/pkg-name#readme",
+  "homepage": "https://github.com/hairyf/markdown-it-vitepress-demos#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/pkg-name.git"
+    "url": "git+https://github.com/hairyf/markdown-it-vitepress-demos.git"
   },
-  "bugs": "https://github.com/antfu/pkg-name/issues",
-  "keywords": [],
+  "bugs": "https://github.com/hairyf/markdown-it-vitepress-demos/issues",
+  "keywords": [
+    "markdown",
+    "vitepress",
+    "demo"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -38,30 +41,46 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub",
+    "dev": "nodemon -w src/ -e .ts -x unbuild --stub",
+    "play": "npm run docs:dev",
     "lint": "eslint .",
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "@swc/core": "^1.3.60",
+    "@vue/compiler-core": "^3.3.4",
+    "@vue/compiler-sfc": "^3.3.4",
+    "fs-extra": "^11.1.1",
+    "markdown-it-container": "^3.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.4",
     "@antfu/ni": "^0.21.2",
     "@antfu/utils": "^0.7.2",
+    "@types/fs-extra": "^11.0.1",
+    "@types/markdown-it-container": "^2.0.5",
     "@types/node": "^18.15.11",
     "bumpp": "^9.1.0",
     "eslint": "^8.37.0",
     "esno": "^0.16.3",
     "lint-staged": "^13.2.0",
+    "nodemon": "^2.0.22",
     "pnpm": "^8.1.1",
     "rimraf": "^4.4.1",
     "simple-git-hooks": "^2.8.1",
     "typescript": "^5.0.3",
     "unbuild": "^1.2.0",
     "vite": "^4.2.1",
-    "vitest": "^0.29.8"
+    "vitepress": "1.0.0-beta.1",
+    "vitest": "^0.29.8",
+    "vue": "^3.3.4"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
