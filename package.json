@@ -23,6 +23,11 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
+    },
+    "./markdown-it": {
+      "types": "./dist/markdown-it.d.ts",
+      "require": "./dist/markdown-it.cjs",
+      "import": "./dist/markdown-it.js"
     }
   },
   "main": "./dist/index.mjs",

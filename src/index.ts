@@ -1,7 +1,6 @@
 import type { MarkdownRenderer } from 'vitepress'
-import { markdownDemoContainer, markdownDemoTagBlock } from './markdown-it'
+import { markdownDemoContainer, markdownDemoTagBlock } from './core'
 
-export * from './markdown-it'
 export * from './types'
 
 function use(md: MarkdownRenderer) {
