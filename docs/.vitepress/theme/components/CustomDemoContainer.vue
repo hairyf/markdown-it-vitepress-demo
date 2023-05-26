@@ -11,11 +11,7 @@ const props = defineProps<{
   metadata: object
 }>()
 
-const sfcTsCode = computed(() => decodeURIComponent(props.sfcTsCode))
-const sfcJsCode = computed(() => decodeURIComponent(props.sfcJsCode))
 const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml))
-
-console.log(props)
 </script>
 
 <template>

@@ -6,7 +6,7 @@ import CustomDemoContainer from './components/CustomDemoContainer.vue'
 
 export default {
   ...Theme,
-  enhanceApp({ app, router, siteData }) {
+  enhanceApp({ app }) {
     app.component('demo-container', CustomDemoContainer)
   },
 }
