@@ -51,9 +51,7 @@ Register your `<demo-container>` component in `theme/index.ts|js`:
 
 ```js
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
 import Theme from 'vitepress/theme'
-import './style.css'
 // your demo component
 import CustomDemoContainer from './components/CustomDemoContainer.vue'
 
@@ -69,7 +67,7 @@ The `demo-container` component will receive relevant information about the demo,
 
 ```html
 <script lang="ts" setup>
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   sfcTsCode: string
@@ -105,8 +103,6 @@ The `demo-container` component will receive relevant information about the demo.
 
 ```html
 <script lang="ts" setup>
-import { computed, useSlots } from 'vue'
-
 const props = defineProps<{
   sfcTsCode: string
   sfcJsCode: string
@@ -124,6 +120,45 @@ function toEditGithubDemoFile() {
 }
 </script>
 ```
+
+## CodeSandbox
+
+You can define the parameters for CodeSandbox by using `codesandbox/lib/api/define` and create a sandbox environment by submitting them to the CodeSandbox API through a `<form>`:
+
+```html
+<script lang="ts" setup>
+import { getParameters } from 'codesandbox/lib/api/define'
+
+const props = defineProps<{
+  sfcTsCode: string
+  sfcJsCode: string
+  // ...
+}>()
+
+// Compute the parameters for CodeSandbox
+const parameters = computed(() => {
+  return getParameters({
+    files: {
+      'package.json': {
+        // specify your dependencies
+        content: { dependencies: { vue: 'latest' } },
+      },
+      'index.html': { content: `<div id="app"></div>` },
+      'App.vue': { content: decodeURIComponent(props.sfcJsCode) },
+      'src/main.js': { content: '...' },
+    },
+  })
+})
+</script>
+<template>
+  <!-- Form to submit the parameters to CodeSandbox -->
+  <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+    <input type="hidden" name="parameters" :value="parameters">
+    <button>Edit in CodeSandbox</button>
+  </form>
+</template>
+```
+
 
 ## Development
 
