@@ -6,13 +6,13 @@
 
 With this plugin, you can use the `<demo>` tag in Markdown to reference a demo container. For example:
 
-```markdown
+```html
 <demo src="../demo.vue" title="Demo block" desc="use demo" />
 ```
 
 You can use Markdown syntax in the `desc` field. For example:
 
-```markdown
+```html
 <demo src="../demo.vue" title="Demo block" desc="use `demo` ..." />
 ```
 
@@ -104,9 +104,7 @@ const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml)
 The `demo-container` component will receive relevant information about the demo. You can use the `metadata` to access and use this information within the demo:
 
 ```html
-<script lang
-
-="ts" setup>
+<script lang="ts" setup>
 import { computed, useSlots } from 'vue'
 
 const props = defineProps<{
@@ -126,6 +124,30 @@ function toEditGithubDemoFile() {
 }
 </script>
 ```
+
+## Development
+
+```bash
+pnpm install
+
+# Run development server
+pnpm dev
+
+# Have fun!
+pnpm play
+```
+
+> Unit tests are in progress, PRs welcome!
+
+## Acknowledgements
+
+This project draws inspiration from the following projects:
+
+- [ruabick](https://github.com/dewfall123/ruabick)
+- [vitepress-demo-preview](https://github.com/flingyp/vitepress-demo-preview)
+- [create-vitepress-demo](https://github.com/bowencool/create-vitepress-demo)
+- [naive-ui](https://github.com/tusen-ai/naive-ui)
+- [element-plus](https://github.com/element-plus/element-plus)
 
 ## License
 
