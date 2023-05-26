@@ -87,12 +87,12 @@ const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml)
 <template>
   <div>
     <div>{{ title }}</div>
+    <!-- The description is rendered in the desc slot -->
+    <slot name="desc" />
     <!-- The demo is rendered in the default slot -->
     <slot />
     <!-- highlighted code for the demo -->
     <div class="language-vue" v-html="highlightedHtml"></div>
-    <!-- The description is rendered in the desc slot -->
-    <slot name="desc" />
   </div>
 </template>
 ```
