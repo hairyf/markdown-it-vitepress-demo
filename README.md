@@ -71,7 +71,7 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   sfcTsCode: string
-  // if using ts, both sfcTsCode and sfcJsCode will exist
+  // if using ts, sfcJsCode will transform the to js
   sfcJsCode: string
   highlightedHtml: string
   // descriptionHtml is generally not used since the slot with name="desc" will handle everything
