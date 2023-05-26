@@ -71,6 +71,7 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   sfcTsCode: string
+  // if using ts, both sfcTsCode and sfcJsCode will exist
   sfcJsCode: string
   highlightedHtml: string
   // descriptionHtml is generally not used since the slot with name="desc" will handle everything
@@ -105,7 +106,6 @@ The `demo-container` component will receive relevant information about the demo.
 <script lang="ts" setup>
 const props = defineProps<{
   sfcTsCode: string
-  // if using ts, both sfcTsCode and sfcJsCode will exist
   sfcJsCode: string
   highlightedHtml: string
   descriptionHtml?: string
