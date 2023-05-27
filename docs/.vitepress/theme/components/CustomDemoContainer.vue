@@ -16,7 +16,9 @@ const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
 
 <template>
   <div>
-    <div>{{ title }}</div>
+    <h3 style="margin-bottom: 20px;">
+      {{ title }}
+    </h3>
     <!-- The demo is rendered in the default slot -->
     <slot />
     <!-- Highlighted code for the demo -->
