@@ -4,15 +4,14 @@ import { computed } from 'vue'
 const props = defineProps<{
   sfcTsCode: string
   sfcJsCode: string
-  highlightedHtml: string
-  // descriptionHtml is generally not used since the slot with name="desc" will handle everything
-  descriptionHtml?: string
+  sfcTsHtml: string
+  sfcJsHtml: string
   title: string
   metadata: object
 }>()
 
-const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml))
-console.log(props.metadata)
+const sfcTsHtml = computed(() => decodeURIComponent(props.sfcTsHtml))
+const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
 </script>
 
 <template>
@@ -21,7 +20,10 @@ console.log(props.metadata)
     <!-- The demo is rendered in the default slot -->
     <slot />
     <!-- Highlighted code for the demo -->
-    <div class="language-vue" v-html="highlightedHtml" />
+    <h2>sfcTsHtml：</h2>
+    <div class="language-vue" v-html="sfcTsHtml" />
+    <h2>sfcJsHtml：</h2>
+    <div class="language-vue" v-html="sfcJsHtml" />
     <!-- The description is rendered in the desc slot -->
     <slot name="desc" />
   </div>

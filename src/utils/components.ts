@@ -33,6 +33,9 @@ export function generateDemoComponent(
   const descriptionHtml = md.renderInline(desc || '')
   const sfcTsCode = isUsingTS ? code : ''
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
+  const sfcTsHtml = isUsingTS ? highlightedHtml : ''
+  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', '')
+
   const metadata: Metadata = {
     absolutePath: path,
     relativePath: normalizePath(relative(process.cwd(), path)),
@@ -42,8 +45,8 @@ export function generateDemoComponent(
   <demo-container
     sfcTsCode="${encodeURIComponent(sfcTsCode)}"
     sfcJsCode="${encodeURIComponent(sfcJsCode)}"
-    highlightedHtml="${encodeURIComponent(highlightedHtml)}"
-    ${desc ? `descriptionHtml="${encodeURIComponent(descriptionHtml)}"` : ''}
+    sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
+    sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
     title="${title}"
     :metadata='${JSON.stringify(metadata)}'
   >
@@ -113,6 +116,8 @@ export function generateDemoContainerPrefix(
   const descriptionHtml = md.renderInline(desc || '')
   const sfcTsCode = isUsingTS ? code : ''
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
+  const sfcTsHtml = isUsingTS ? highlightedHtml : ''
+  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', '')
   const metadata: Metadata = {
     absolutePath: path,
     relativePath: normalizePath(relative(process.cwd(), path)),
@@ -122,7 +127,8 @@ export function generateDemoContainerPrefix(
   <demo-container
     sfcTsCode="${encodeURIComponent(sfcTsCode)}"
     sfcJsCode="${encodeURIComponent(sfcJsCode)}"
-    highlightedHtml="${encodeURIComponent(highlightedHtml)}"
+    sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
+    sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
     ${desc ? `descriptionHtml="${encodeURIComponent(descriptionHtml)}"` : ''}
     title="${title}"
     :metadata='${JSON.stringify(metadata)}'

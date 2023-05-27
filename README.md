@@ -73,16 +73,15 @@ const props = defineProps<{
   sfcTsCode: string
   // if using ts, sfcJsCode will transform the to js
   sfcJsCode: string
-  highlightedHtml: string
-  // descriptionHtml is generally not used since the slot with name="desc" will handle everything
-  descriptionHtml?: string
+  sfcTsHtml: string
+  sfcJsHtml: string
   title: string
   metadata: object
 }>()
 
 const sfcTsCode = computed(() => decodeURIComponent(props.sfcTsCode))
 const sfcJsCode = computed(() => decodeURIComponent(props.sfcJsCode))
-const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml))
+const highlightedHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJsHtml))
 </script>
 
 <template>
@@ -107,7 +106,8 @@ The `demo-container` component will receive relevant information about the demo.
 const props = defineProps<{
   sfcTsCode: string
   sfcJsCode: string
-  highlightedHtml: string
+  sfcTsHtml: string
+  sfcJsHtml: string
   descriptionHtml?: string
   title: string
   // metadata returns information about the demo during build (absolutePath, relativePath, fileName)
