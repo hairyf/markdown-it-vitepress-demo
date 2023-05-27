@@ -79,14 +79,15 @@ const props = defineProps<{
   metadata: object
 }>()
 
-const sfcTsCode = computed(() => decodeURIComponent(props.sfcTsCode))
-const sfcJsCode = computed(() => decodeURIComponent(props.sfcJsCode))
+const sfcCode = computed(() => decodeURIComponent(props.sfcTsCode || props.sfcJsCode))
 const highlightedHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJsHtml))
 </script>
 
 <template>
   <div>
     <div>{{ title }}</div>
+    <!-- copy your demo source code -->
+    <div @click="navigator.clipboard.writeText(sfcCode)"></div>
     <!-- The description is rendered in the desc slot -->
     <slot name="desc" />
     <!-- The demo is rendered in the default slot -->
