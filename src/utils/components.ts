@@ -35,7 +35,7 @@ export function generateDemoComponent(
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
   const metadata: Metadata = {
     absolutePath: path,
-    relativePath: relative(process.cwd(), path),
+    relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
   }
   return trim(`
@@ -115,7 +115,7 @@ export function generateDemoContainerPrefix(
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
   const metadata: Metadata = {
     absolutePath: path,
-    relativePath: relative(process.cwd(), path),
+    relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
   }
   return trim(`

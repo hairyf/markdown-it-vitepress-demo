@@ -12,6 +12,7 @@ const props = defineProps<{
 }>()
 
 const highlightedHtml = computed(() => decodeURIComponent(props.highlightedHtml))
+console.log(props.metadata)
 </script>
 
 <template>
