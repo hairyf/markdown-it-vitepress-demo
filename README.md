@@ -109,7 +109,6 @@ const props = defineProps<{
   sfcJsCode: string
   sfcTsHtml: string
   sfcJsHtml: string
-  descriptionHtml?: string
   title: string
   // metadata returns information about the demo during build (absolutePath, relativePath, fileName)
   metadata: object
