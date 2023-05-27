@@ -87,7 +87,7 @@ const highlightedHtml = computed(() => decodeURIComponent(props.sfcTsHtml || pro
   <div>
     <div>{{ title }}</div>
     <!-- copy your demo source code -->
-    <div @click="navigator.clipboard.writeText(sfcCode)"></div>
+    <div @click="navigator.clipboard.writeText(sfcCode)"> Copy Code </div>
     <!-- The description is rendered in the desc slot -->
     <slot name="desc" />
     <!-- The demo is rendered in the default slot -->
