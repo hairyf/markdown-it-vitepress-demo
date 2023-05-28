@@ -3,7 +3,7 @@ import { baseParse } from '@vue/compiler-core'
 import { isUndefined } from './util'
 
 function getPropsMap(attrs: any[]) {
-  const map: Record<string, string | boolean | undefined> = {}
+  const map: Record<string, any> = {}
   for (const { name, value, exp, arg } of attrs) {
     if (name === 'bind') {
       if (!isUndefined(arg?.content))
