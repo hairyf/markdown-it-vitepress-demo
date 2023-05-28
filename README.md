@@ -28,6 +28,14 @@ This is a `description` that can be written using Markdown.
 
 This looks more aesthetically pleasing and adheres better to Markdown syntax.
 
+
+In addition, you can pass the `attrs` parameter to `props`, so you can utilize the [Line Highlighting in Code Blocks](https://vitepress.dev/guide/markdown#line-highlighting-in-code-blocks) feature of VitePress:
+
+```markdown
+<demo src="../demo.vue" attrs="{1,4,6-8}" />
+<demo src="../demo.vue" attrs="{4}" />
+```
+
 ## Install
 
 ```bash
