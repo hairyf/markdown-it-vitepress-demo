@@ -8,6 +8,7 @@ import { normalizePath, trim } from './util'
 export interface GenerateOptions {
   title?: string
   desc?: string
+  attrs?: string
   path: string
   code: string
 }
@@ -21,7 +22,7 @@ let index = 1
 export function generateDemoComponent(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { title, code, desc, path }: GenerateOptions,
+  { title, code, desc, path, attrs }: GenerateOptions,
 ) {
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
@@ -29,12 +30,12 @@ export function generateDemoComponent(
   injectImportStatement(name, path, env)
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const highlightedHtml = md.options.highlight!(code, 'vue', '')
+  const highlightedHtml = md.options.highlight!(code, 'vue', attrs || '')
   const descriptionHtml = md.renderInline(desc || '')
   const sfcTsCode = isUsingTS ? code : ''
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
   const sfcTsHtml = isUsingTS ? highlightedHtml : ''
-  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', '')
+  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', attrs || '')
 
   const metadata: Metadata = {
     absolutePath: path,
@@ -104,7 +105,7 @@ export function injectImportStatement(
 export function generateDemoContainerPrefix(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { title, code, desc, path }: GenerateOptions,
+  { title, code, desc, path, attrs }: GenerateOptions,
 ) {
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
@@ -112,12 +113,13 @@ export function generateDemoContainerPrefix(
   injectImportStatement(name, path, env)
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const highlightedHtml = md.options.highlight!(code, 'vue', '')
+  const highlightedHtml = md.options.highlight!(code, 'vue', attrs || '')
+
   const descriptionHtml = md.renderInline(desc || '')
   const sfcTsCode = isUsingTS ? code : ''
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
   const sfcTsHtml = isUsingTS ? highlightedHtml : ''
-  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', '')
+  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', attrs || '')
   const metadata: Metadata = {
     absolutePath: path,
     relativePath: normalizePath(relative(process.cwd(), path)),

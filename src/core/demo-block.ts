@@ -14,6 +14,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
 
       const { path } = env as MarkdownEnv
       const props = parseProps(content)
+
       if (!props.src) {
         console.error(`rendering ${path}: src prop is required`)
         return defaultRender!(tokens, idx, options, env, self)
@@ -30,6 +31,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
       const demoScripts = generateDemoComponent(md, env, {
         title: props.title,
         desc: props.desc,
+        attrs: props.attrs,
         code: fs.readFileSync(srcPath, 'utf-8'),
         path: resolve(markdownPath, props.src),
       })
