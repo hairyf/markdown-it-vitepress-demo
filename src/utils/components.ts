@@ -43,8 +43,6 @@ export function generateDemoComponent(
     fileName: path.split('/').pop() || '',
   }
 
-  console.log(props)
-
   return trim(`
   <demo-container
     sfcTsCode="${encodeURIComponent(sfcTsCode)}"
@@ -128,8 +126,6 @@ export function generateDemoContainerPrefix(
     relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
   }
-
-  console.log('>>', props)
 
   return trim(`
   <demo-container
