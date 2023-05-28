@@ -36,6 +36,14 @@ In addition, you can pass the `attrs` parameter to `props`, so you can utilize t
 <demo src="../demo.vue" attrs="{4}" />
 ```
 
+Other `props` will not be processed and will be directly passed to the `<demo-container>` component. For example, you can customize whether the code is expanded using the `prop`:
+
+```markdown
+<demo src="../demo.vue" expand />
+```
+
+> however, it is important to note that `<demo>` is not strictly a component and cannot handle excessively complex custom `props`, such as `v-bind`.
+
 ## Install
 
 ```bash

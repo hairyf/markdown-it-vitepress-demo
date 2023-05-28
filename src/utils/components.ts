@@ -6,9 +6,9 @@ import type { Metadata } from '../types'
 import { normalizePath, trim } from './util'
 
 export interface GenerateOptions {
-  title?: string
   desc?: string
   attrs?: string
+  props: Record<string, any>
   path: string
   code: string
 }
@@ -22,7 +22,7 @@ let index = 1
 export function generateDemoComponent(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { title, code, desc, path, attrs }: GenerateOptions,
+  { code, desc, path, attrs, props }: GenerateOptions,
 ) {
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
@@ -42,14 +42,17 @@ export function generateDemoComponent(
     relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
   }
+
+  console.log(props)
+
   return trim(`
   <demo-container
     sfcTsCode="${encodeURIComponent(sfcTsCode)}"
     sfcJsCode="${encodeURIComponent(sfcJsCode)}"
     sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
     sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
-    title="${title}"
     :metadata='${JSON.stringify(metadata)}'
+    v-bind='${JSON.stringify(props)}'
   >
     <${name} />
     <template #desc>
@@ -105,7 +108,7 @@ export function injectImportStatement(
 export function generateDemoContainerPrefix(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { title, code, desc, path, attrs }: GenerateOptions,
+  { code, desc, path, attrs, props }: GenerateOptions,
 ) {
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
@@ -125,6 +128,9 @@ export function generateDemoContainerPrefix(
     relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
   }
+
+  console.log('>>', props)
+
   return trim(`
   <demo-container
     sfcTsCode="${encodeURIComponent(sfcTsCode)}"
@@ -132,8 +138,8 @@ export function generateDemoContainerPrefix(
     sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
     sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
     ${desc ? `descriptionHtml="${encodeURIComponent(descriptionHtml)}"` : ''}
-    title="${title}"
     :metadata='${JSON.stringify(metadata)}'
+    v-bind='${JSON.stringify(props)}'
   >
     <${name} />
     <template #desc>

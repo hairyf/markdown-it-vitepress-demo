@@ -7,3 +7,7 @@ export function normalizePath(path: string) {
 export function trim(str: string) {
   return str.trim()
 }
+
+export function isUndefined(v: any): v is undefined {
+  return v === undefined || v === null
+}

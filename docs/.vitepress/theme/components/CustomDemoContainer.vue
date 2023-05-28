@@ -8,6 +8,7 @@ const props = defineProps<{
   sfcJsHtml: string
   title: string
   metadata: object
+  expand?: boolean
 }>()
 
 const sfcHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJsHtml))

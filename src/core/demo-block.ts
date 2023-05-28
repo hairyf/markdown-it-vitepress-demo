@@ -20,8 +20,9 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         return defaultRender!(tokens, idx, options, env, self)
       }
 
+      const { src, desc, attrs, ...otherProps } = props
       const markdownPath = dirname(path)
-      const srcPath = resolve(markdownPath, props.src).replace(/\\/g, '/')
+      const srcPath = resolve(markdownPath, src).replace(/\\/g, '/')
 
       if (!fs.existsSync(srcPath)) {
         console.error(`rendering ${path}: ${srcPath} does not exist`)
@@ -29,9 +30,9 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
       }
 
       const demoScripts = generateDemoComponent(md, env, {
-        title: props.title,
-        desc: props.desc,
-        attrs: props.attrs,
+        desc,
+        attrs,
+        props: otherProps,
         code: fs.readFileSync(srcPath, 'utf-8'),
         path: resolve(markdownPath, props.src),
       })
