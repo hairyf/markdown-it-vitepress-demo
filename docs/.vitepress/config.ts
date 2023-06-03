@@ -13,8 +13,7 @@ const themeConfig: DefaultTheme.Config = {
     {
       text: 'Examples',
       items: [
-        { text: 'Markdown Examples', link: '/markdown-examples' },
-        { text: 'Runtime API Examples', link: '/api-examples' },
+        { text: 'Demos', link: '/demos' },
       ],
     },
   ],

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/no-inferrable-types
-const data: string = 'Hello!'
+const data: string | number = 'Hello!'
 function onClick() {
   alert('Hello!')
 }
