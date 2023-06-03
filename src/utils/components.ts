@@ -1,6 +1,6 @@
 import { relative } from 'node:path'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
-import { parse } from 'vue/compiler-sfc'
+import { parse as parseSfc } from 'vue/compiler-sfc'
 import { transformSync } from 'esbuild'
 import type { Metadata } from '../types'
 import { normalizePath, trim } from './util'
@@ -19,7 +19,7 @@ const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 const scriptClientRE = /<\s*script[^>]*\bclient\b[^>]*/
 let index = 1
 
-export function parseDemo(
+export function parse(
   md: MarkdownRenderer,
   env: MarkdownEnv,
   { code, desc, path, attrs: _attrs, props }: GenerateOptions,
@@ -68,7 +68,7 @@ export function generateDemoComponent(
   env: MarkdownEnv,
   options: GenerateOptions,
 ) {
-  const { name, attrs, descriptionHtml } = parseDemo(md, env, options)
+  const { name, attrs, descriptionHtml } = parse(md, env, options)
 
   return trim(`
   <demo-container \n${attrs}>
@@ -128,7 +128,7 @@ export function generateDemoContainerPrefix(
   env: MarkdownEnv,
   options: GenerateOptions,
 ) {
-  const { name, attrs } = parseDemo(md, env, options)
+  const { name, attrs } = parse(md, env, options)
 
   return trim(`
   <demo-container \n${attrs}>
@@ -145,7 +145,7 @@ export function generateDemoContainerSuffix() {
 }
 
 export function transformSfcCode(code: string, lang: 'js' | 'ts') {
-  const { descriptor } = parse(code)
+  const { descriptor } = parseSfc(code)
   let source = code.replace(/<script.*?<\/script>/gs, '')
 
   function into(prefix: string, content: string, suffix: string) {
