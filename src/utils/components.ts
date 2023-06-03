@@ -149,7 +149,7 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
   let source = code.replace(/<script.*?<\/script>/gs, '')
 
   function into(prefix: string, content: string, suffix: string) {
-    if (lang === 'ts') {
+    if (lang === 'js') {
       const beforeTransformContent = content.replace(
         /\n(\s)*\n/g,
         '\n__blank_line\n',
@@ -160,9 +160,10 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
         minifyWhitespace: false,
         charset: 'utf8',
       })
-      content = code.trim().replace(/__blankline;/g, '')
+
+      content = `\n${code.trim().replace(/__blankline;/g, '')}\n`
     }
-    source = `${prefix}\n${content}\n${suffix}\n\n${source.trim()}`
+    source = `${prefix}${content}${suffix}\n\n${source.trim()}`
   }
 
   if (descriptor.scriptSetup?.content)
