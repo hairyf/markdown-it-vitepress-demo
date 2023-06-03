@@ -150,18 +150,23 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
 
   function into(prefix: string, content: string, suffix: string) {
     if (lang === 'js') {
-      const beforeTransformContent = content.replace(
-        /\n(\s)*\n/g,
-        '\n__blank_line\n',
-      )
-      const { code } = transformSync(beforeTransformContent, {
+      const beforeTransformContent = content
+        .replace(/\n(\s)*\n/g, '\n__blank_line\n')
+        .replace(/import\s+(?!type\s+)/g, '//! __blank_import:$&')
+
+      let { code } = transformSync(beforeTransformContent, {
         loader: 'ts',
         minify: false,
         minifyWhitespace: false,
+        treeShaking: false,
         charset: 'utf8',
       })
 
-      content = `\n${code.trim().replace(/__blankline;/g, '')}\n`
+      code = code
+        .trim()
+        .replace(/__blank_line;/g, '')
+        .replace(/\/\/! __blank_import:/g, '')
+      content = `\n${code}\n`
     }
     source = `${prefix}${content}${suffix}\n\n${source.trim()}`
   }
