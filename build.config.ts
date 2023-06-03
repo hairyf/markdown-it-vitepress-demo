@@ -7,7 +7,7 @@ export default defineBuildConfig({
   ],
   externals: [
     'vitepress',
-    '@swc/core',
+    'esbuild',
     '@vue/compiler-core',
     '@vue/compiler-sfc',
     'fs-extra',

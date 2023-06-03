@@ -1,7 +1,7 @@
 import { relative } from 'node:path'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 import { parse } from 'vue/compiler-sfc'
-import { transformSync } from '@swc/core'
+import { transformSync } from 'esbuild'
 import type { Metadata } from '../types'
 import { normalizePath, trim } from './util'
 
@@ -19,23 +19,22 @@ const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 const scriptClientRE = /<\s*script[^>]*\bclient\b[^>]*/
 let index = 1
 
-export function generateDemoComponent(
+export function parseDemo(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { code, desc, path, attrs, props }: GenerateOptions,
+  { code, desc, path, attrs: _attrs, props }: GenerateOptions,
 ) {
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
-
   injectImportStatement(name, path, env)
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const highlightedHtml = md.options.highlight!(code, 'vue', attrs || '')
+  const highlightedHtml = md.options.highlight!(code, 'vue', _attrs || '')
   const descriptionHtml = md.renderInline(desc || '')
   const sfcTsCode = isUsingTS ? code : ''
   const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
   const sfcTsHtml = isUsingTS ? highlightedHtml : ''
-  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', attrs || '')
+  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', _attrs || '')
 
   const metadata: Metadata = {
     absolutePath: path,
@@ -43,18 +42,39 @@ export function generateDemoComponent(
     fileName: path.split('/').pop() || '',
   }
 
+  const attrs
+   = `sfcTsCode="${encodeURIComponent(sfcTsCode)}"\n`
+   + `sfcJsCode="${encodeURIComponent(sfcJsCode)}"\n`
+   + `sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"\n`
+   + `sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"\n`
+   + `:metadata='${JSON.stringify(metadata)}'\n`
+   + `v-bind='${JSON.stringify(props)}'\n`
+
+  return {
+    name,
+    attrs,
+    descriptionHtml,
+    highlightedHtml,
+    isUsingTS,
+    sfcTsCode,
+    sfcJsCode,
+    sfcTsHtml,
+    sfcJsHtml,
+  }
+}
+
+export function generateDemoComponent(
+  md: MarkdownRenderer,
+  env: MarkdownEnv,
+  options: GenerateOptions,
+) {
+  const { name, attrs, descriptionHtml } = parseDemo(md, env, options)
+
   return trim(`
-  <demo-container
-    sfcTsCode="${encodeURIComponent(sfcTsCode)}"
-    sfcJsCode="${encodeURIComponent(sfcJsCode)}"
-    sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
-    sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
-    :metadata='${JSON.stringify(metadata)}'
-    v-bind='${JSON.stringify(props)}'
-  >
+  <demo-container \n${attrs}>
     <${name} />
     <template #desc>
-      <div v-if="${Boolean(desc)}" v-html="'${descriptionHtml}'"></div>
+      <div v-if="${Boolean(descriptionHtml)}" v-html="'${descriptionHtml}'"></div>
     </template>
   </demo-container>
   `)
@@ -106,37 +126,12 @@ export function injectImportStatement(
 export function generateDemoContainerPrefix(
   md: MarkdownRenderer,
   env: MarkdownEnv,
-  { code, desc, path, attrs, props }: GenerateOptions,
+  options: GenerateOptions,
 ) {
-  const name = `DemoComponent${index++}`
-  path = normalizePath(path)
-
-  injectImportStatement(name, path, env)
-
-  const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const highlightedHtml = md.options.highlight!(code, 'vue', attrs || '')
-
-  const descriptionHtml = md.renderInline(desc || '')
-  const sfcTsCode = isUsingTS ? code : ''
-  const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
-  const sfcTsHtml = isUsingTS ? highlightedHtml : ''
-  const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', attrs || '')
-  const metadata: Metadata = {
-    absolutePath: path,
-    relativePath: normalizePath(relative(process.cwd(), path)),
-    fileName: path.split('/').pop() || '',
-  }
+  const { name, attrs } = parseDemo(md, env, options)
 
   return trim(`
-  <demo-container
-    sfcTsCode="${encodeURIComponent(sfcTsCode)}"
-    sfcJsCode="${encodeURIComponent(sfcJsCode)}"
-    sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"
-    sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"
-    ${desc ? `descriptionHtml="${encodeURIComponent(descriptionHtml)}"` : ''}
-    :metadata='${JSON.stringify(metadata)}'
-    v-bind='${JSON.stringify(props)}'
-  >
+  <demo-container \n${attrs}>
     <${name} />
     <template #desc>
   `)
@@ -154,13 +149,17 @@ export function sfcTs2Js(code: string) {
   let source = code.replace(/<script.*?<\/script>/gs, '')
 
   function into(prefix: string, content: string, suffix: string) {
-    let { code } = transformSync(content, {
-      jsc: {
-        parser: { syntax: 'typescript' },
-        target: 'es2018',
-      },
+    const beforeTransformContent = content.replace(
+      /\n(\s)*\n/g,
+      '\n__blank_line\n',
+    )
+    let { code } = transformSync(beforeTransformContent, {
+      loader: 'ts',
+      minify: false,
+      minifyWhitespace: false,
+      charset: 'utf8',
     })
-    code = code.replace(/ {4}/g, '  ')
+    code = code.trim().replace(/__blankline;/g, '')
     source = `${prefix}\n${code}${suffix}\n\n${source.trim()}`
   }
 
