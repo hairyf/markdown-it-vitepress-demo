@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { computed } from 'vue'
 
@@ -9,9 +10,14 @@ const props = defineProps<{
   title: string
   metadata: object
   expand?: boolean
+  a?: number
+  b?: object
 }>()
 
-const sfcHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJsHtml))
+const sfcTsHtml = computed(() => decodeURIComponent(props.sfcTsHtml))
+const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
+
+console.log({ ...props })
 </script>
 
 <template>
@@ -22,9 +28,10 @@ const sfcHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJs
     <!-- The demo is rendered in the default slot -->
     <slot />
     <!-- Highlighted code for the demo -->
-    <h2>sfcHtml：</h2>
-    <div class="language-vue" v-html="sfcHtml" />
-    <!-- The description is rendered in the desc slot -->
+    <div>
+      <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" />
+      <div class="language-vue" style="flex: 1;" v-html="sfcJsHtml" />
+    </div>
     <slot name="desc" />
   </div>
 </template>

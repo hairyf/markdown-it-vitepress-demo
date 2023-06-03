@@ -31,8 +31,8 @@ export function parseDemo(
   const isUsingTS = /lang=['"]ts['"]/.test(code)
   const highlightedHtml = md.options.highlight!(code, 'vue', _attrs || '')
   const descriptionHtml = md.renderInline(desc || '')
-  const sfcTsCode = isUsingTS ? code : ''
-  const sfcJsCode = isUsingTS ? sfcTs2Js(code) : code
+  const sfcTsCode = isUsingTS ? transformSfcCode(code, 'ts') : ''
+  const sfcJsCode = isUsingTS ? transformSfcCode(code, 'js') : code
   const sfcTsHtml = isUsingTS ? highlightedHtml : ''
   const sfcJsHtml = md.options.highlight!(sfcJsCode, 'vue', _attrs || '')
 
@@ -144,23 +144,25 @@ export function generateDemoContainerSuffix() {
   `)
 }
 
-export function sfcTs2Js(code: string) {
+export function transformSfcCode(code: string, lang: 'js' | 'ts') {
   const { descriptor } = parse(code)
   let source = code.replace(/<script.*?<\/script>/gs, '')
 
   function into(prefix: string, content: string, suffix: string) {
-    const beforeTransformContent = content.replace(
-      /\n(\s)*\n/g,
-      '\n__blank_line\n',
-    )
-    let { code } = transformSync(beforeTransformContent, {
-      loader: 'ts',
-      minify: false,
-      minifyWhitespace: false,
-      charset: 'utf8',
-    })
-    code = code.trim().replace(/__blankline;/g, '')
-    source = `${prefix}\n${code}${suffix}\n\n${source.trim()}`
+    if (lang === 'ts') {
+      const beforeTransformContent = content.replace(
+        /\n(\s)*\n/g,
+        '\n__blank_line\n',
+      )
+      const { code } = transformSync(beforeTransformContent, {
+        loader: 'ts',
+        minify: false,
+        minifyWhitespace: false,
+        charset: 'utf8',
+      })
+      content = code.trim().replace(/__blankline;/g, '')
+    }
+    source = `${prefix}\n${content}\n${suffix}\n\n${source.trim()}`
   }
 
   if (descriptor.scriptSetup?.content)
@@ -169,5 +171,5 @@ export function sfcTs2Js(code: string) {
   if (descriptor.script?.content)
     into('<script>', descriptor.script.content, '</script>')
 
-  return source
+  return source.trim()
 }
