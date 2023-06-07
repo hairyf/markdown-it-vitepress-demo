@@ -172,10 +172,10 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
   }
 
   if (descriptor.scriptSetup?.content)
-    into('<script setup>', descriptor.scriptSetup.content, '</script>')
+    into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}setup>`, descriptor.scriptSetup.content, '</script>')
 
   if (descriptor.script?.content)
-    into('<script>', descriptor.script.content, '</script>')
+    into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}>`, descriptor.script.content, '</script>')
 
   return source.trim()
 }
