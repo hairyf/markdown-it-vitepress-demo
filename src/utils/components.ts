@@ -171,11 +171,17 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
     source = `${prefix}${content}${suffix}\n\n${source.trim()}`
   }
 
-  if (descriptor.scriptSetup?.content)
-    into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}setup>`, descriptor.scriptSetup.content, '</script>')
+  try {
+    if (descriptor.scriptSetup?.content)
+      into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}setup>`, descriptor.scriptSetup.content, '</script>')
 
-  if (descriptor.script?.content)
-    into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}>`, descriptor.script.content, '</script>')
+    if (descriptor.script?.content)
+      into(`<script ${lang === 'ts' ? 'lang="ts" ' : ''}>`, descriptor.script.content, '</script>')
 
-  return source.trim()
+    return source.trim()
+  }
+  catch (error: any) {
+    console.warn('[markdown-it-vitepress-demo]: ', error.message)
+    return code
+  }
 }

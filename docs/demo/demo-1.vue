@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+import defaultContent2 from './indexcopy'
+import defaultContent, {
+  Custom,
+} from './'
+import * as anys from './'
+
 const data: string | number = 'Hello!'
 function onClick() {
   alert('Hello!')
@@ -6,7 +12,10 @@ function onClick() {
 </script>
 
 <template>
-  <button @click="onClick">
-    {{ data }} Click Me!
-  </button>
+  <Custom>
+    <button @click="onClick">
+      {{ data }} Click Me! {{ defaultContent }} {{ defaultContent2 }}
+      {{ anys.default }}
+    </button>
+  </Custom>
 </template>
