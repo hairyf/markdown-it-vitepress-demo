@@ -144,15 +144,26 @@ export function generateDemoContainerSuffix() {
   `)
 }
 
+function parseModules(content: string) {
+  return [...content.matchAll(/import(.*?)from/sg)]
+    .map(v => v[1])
+    .map(v => v.replace('* as ', ''))
+    .map(v => v.replace(',}', '}'))
+    .map(v => v.replace(/[\r\n]/g, ''))
+    .map(v => v.trim())
+}
+
 export function transformSfcCode(code: string, lang: 'js' | 'ts') {
   const { descriptor } = parseSfc(code)
   let source = code.replace(/<script.*?<\/script>/gs, '')
-
   function into(prefix: string, content: string, suffix: string) {
     if (lang === 'js') {
-      const beforeTransformContent = content
+      let beforeTransformContent = content
         .replace(/\n(\s)*\n/g, '\n__blank_line\n')
-        .replace(/import\s+(?!type\s+)/g, '//! __blank_import:$&')
+      const modules = parseModules(beforeTransformContent)
+      beforeTransformContent += '\n__blank_import_start;'
+      beforeTransformContent += `\n(${modules.join(',')});`
+      beforeTransformContent += '\n__blank_import_end;'
 
       let { code } = transformSync(beforeTransformContent, {
         loader: 'ts',
@@ -163,9 +174,10 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
       })
 
       code = code
-        .trim()
         .replace(/__blank_line;/g, '')
-        .replace(/\/\/! __blank_import:/g, '')
+        .replace(/__blank_import_start;.*?__blank_import_end;/s, '')
+        .trim()
+
       content = `\n${code}\n`
     }
     source = `${prefix}${content}${suffix}\n\n${source.trim()}`
