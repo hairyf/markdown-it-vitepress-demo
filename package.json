@@ -76,7 +76,7 @@
     "eslint": "^8.37.0",
     "esno": "^0.16.3",
     "lint-staged": "^13.2.0",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.0",
     "pnpm": "^8.1.1",
     "rimraf": "^4.4.1",
     "simple-git-hooks": "^2.8.1",
