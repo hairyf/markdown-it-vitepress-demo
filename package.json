@@ -78,7 +78,7 @@
     "lint-staged": "^13.2.0",
     "nodemon": "^2.0.22",
     "pnpm": "^8.1.1",
-    "rimraf": "^4.4.1",
+    "rimraf": "^5.0.0",
     "simple-git-hooks": "^2.8.1",
     "typescript": "^5.0.3",
     "unbuild": "^1.2.0",
