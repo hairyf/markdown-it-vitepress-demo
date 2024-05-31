@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-vitepress-demo",
   "type": "module",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "packageManager": "pnpm@9.1.4",
   "description": "",
   "author": "Hairyf <wwu710632@gmail.com>",
