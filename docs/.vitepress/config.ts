@@ -1,6 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 import { defineConfig } from 'vitepress'
-import markdownDemo from '../..'
+import markdownDemo from '../../src'
 
 const themeConfig: DefaultTheme.Config = {
   // https://vitepress.dev/reference/default-theme-config
