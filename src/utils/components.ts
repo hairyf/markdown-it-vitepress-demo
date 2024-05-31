@@ -43,12 +43,12 @@ export function parse(
   }
 
   const attrs
-   = `sfcTsCode="${encodeURIComponent(sfcTsCode)}"\n`
-   + `sfcJsCode="${encodeURIComponent(sfcJsCode)}"\n`
-   + `sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"\n`
-   + `sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"\n`
-   + `:metadata='${JSON.stringify(metadata)}'\n`
-   + `v-bind='${JSON.stringify(props)}'\n`
+    = `sfcTsCode="${encodeURIComponent(sfcTsCode)}"\n`
+    + `sfcJsCode="${encodeURIComponent(sfcJsCode)}"\n`
+    + `sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"\n`
+    + `sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"\n`
+    + `:metadata='${JSON.stringify(metadata)}'\n`
+    + `v-bind='${JSON.stringify(props)}'\n`
 
   return {
     name,
@@ -145,12 +145,7 @@ export function generateDemoContainerSuffix() {
 }
 
 function parseModules(content: string) {
-  return [...content.matchAll(/import(.*?)from/sg)]
-    .map(v => v[1])
-    .map(v => v.replace('* as ', ''))
-    .map(v => v.replace(',}', '}'))
-    .map(v => v.replace(/[\r\n]/g, ''))
-    .map(v => v.trim())
+  return [...content.matchAll(/import(.*?)from(.*?)\n/sg)].map(v => v[0]).map(c => c.slice(0, c.length - 1))
 }
 
 export function transformSfcCode(code: string, lang: 'js' | 'ts') {
@@ -158,12 +153,11 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
   let source = code.replace(/<script.*?<\/script>/gs, '')
   function into(prefix: string, content: string, suffix: string) {
     if (lang === 'js') {
-      let beforeTransformContent = content
+      const importCode = content.match(/import(.*) from(.*?)\n/s)?.[0] || ''
+
+      const beforeTransformContent = content
+        .replace(importCode, '')
         .replace(/\n(\s)*\n/g, '\n__blank_line\n')
-      const modules = parseModules(beforeTransformContent)
-      beforeTransformContent += '\n__blank_import_start;'
-      beforeTransformContent += `\n(${modules.join(',')});`
-      beforeTransformContent += '\n__blank_import_end;'
 
       let { code } = transformSync(beforeTransformContent, {
         loader: 'ts',
@@ -175,9 +169,16 @@ export function transformSfcCode(code: string, lang: 'js' | 'ts') {
 
       code = code
         .replace(/__blank_line;/g, '')
-        .replace(/__blank_import_start;.*?__blank_import_end;/s, '')
         .trim()
 
+      code = `${importCode}\n${code}`
+
+      ;[...code.matchAll(/import type(.*?)from(.*?)\n/sg)].map(v => v[0]).forEach((str) => {
+        code = code.replace(str, '\n')
+      })
+      ;[...code.matchAll(/import(.*?)from(.*?)\n/sg)].map(v => v[0]).forEach((str) => {
+        code = code.replace(str, `${str.trimEnd()};\n`)
+      })
       content = `\n${code}\n`
     }
     source = `${prefix}${content}${suffix}\n\n${source.trim()}`

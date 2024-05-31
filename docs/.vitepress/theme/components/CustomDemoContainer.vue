@@ -29,7 +29,7 @@ console.log({ ...props })
     <slot />
     <!-- Highlighted code for the demo -->
     <div>
-      <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" />
+      <!-- <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" /> -->
       <div class="language-vue" style="flex: 1;" v-html="sfcJsHtml" />
     </div>
     <slot name="desc" />

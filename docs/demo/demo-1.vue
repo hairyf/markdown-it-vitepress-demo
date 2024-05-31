@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import defaultContent2 from './indexcopy'
-import defaultContent, {
+import defaultContent2, {
   Custom,
-} from './'
+} from './indexcopy'
+
+import defaultContent from './'
+
 import * as anys from './'
 
 const data: string | number = 'Hello!'
+
 function onClick() {
   alert('Hello!')
 }
