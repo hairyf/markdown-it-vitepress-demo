@@ -11,7 +11,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
     validate(params) {
       return !!params.trim().match(/^demo\s*(.*)$/)
     },
-    render(tokens, idx, options, env: MarkdownEnv) {
+    render(tokens: any, idx: any, options: any, env: MarkdownEnv) {
       const opening = tokens[idx].nesting === 1
       if (opening) {
         const content = `<demo ${tokens[idx].info.trim().match(demoRE)?.[1]} />`
