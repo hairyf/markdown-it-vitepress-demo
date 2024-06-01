@@ -16,8 +16,6 @@ const props = defineProps<{
 
 const sfcTsHtml = computed(() => decodeURIComponent(props.sfcTsHtml))
 const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
-
-console.log({ ...props })
 </script>
 
 <template>
@@ -29,7 +27,7 @@ console.log({ ...props })
     <slot />
     <!-- Highlighted code for the demo -->
     <div>
-      <!-- <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" /> -->
+      <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" />
       <div class="language-vue" style="flex: 1;" v-html="sfcJsHtml" />
     </div>
     <slot name="desc" />

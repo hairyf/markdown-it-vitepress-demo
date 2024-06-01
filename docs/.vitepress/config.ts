@@ -19,7 +19,7 @@ const themeConfig: DefaultTheme.Config = {
   ],
 
   socialLinks: [
-    { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+    { icon: 'github', link: 'https://github.com/hairyf/markdown-it-vitepress-demo' },
   ],
 }
 
