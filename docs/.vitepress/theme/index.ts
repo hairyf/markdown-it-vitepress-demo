@@ -1,6 +1,7 @@
 // https://vitepress.dev/guide/custom-theme
 import Theme from 'vitepress/theme'
 import './style.css'
+
 // your demo component
 import CustomDemoContainer from './components/CustomDemoContainer.vue'
 

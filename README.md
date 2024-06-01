@@ -68,6 +68,7 @@ Register your `<demo-container>` component in `theme/index.ts|js`:
 ```js
 // https://vitepress.dev/guide/custom-theme
 import Theme from 'vitepress/theme'
+
 // your demo component
 import CustomDemoContainer from './components/CustomDemoContainer.vue'
 
