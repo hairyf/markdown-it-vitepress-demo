@@ -6,10 +6,10 @@ import defaultContent from './'
 
 import * as anys from './'
 
-const data: string | number | A = 'Hello!'
+const data: string | number | A = 'Goodbye!'
 
 function onClick() {
-  alert('Hello!')
+  alert('Goodbye!')
 }
 </script>
 
