@@ -2,7 +2,7 @@
   "name": "markdown-it-vitepress-demo",
   "type": "module",
   "version": "0.2.2",
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@9.15.9",
   "description": "",
   "author": "Hairyf <wwu710632@gmail.com>",
   "license": "MIT",
