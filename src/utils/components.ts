@@ -1,8 +1,9 @@
-import { relative } from 'node:path'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
-import { parse as parseSfc } from 'vue/compiler-sfc'
-import { transformSync } from 'esbuild'
 import type { Metadata } from '../types'
+import { relative } from 'node:path'
+import process from 'node:process'
+import { transformSync } from 'esbuild'
+import { parse as parseSfc } from 'vue/compiler-sfc'
 import { normalizePath, trim } from './util'
 
 export interface GenerateOptions {
@@ -14,9 +15,9 @@ export interface GenerateOptions {
 }
 
 const scriptRE = /<\/script>/
-const scriptLangTsRE = /<\s*script[^>]*\blang=['"]ts['"][^>]*/
-const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
-const scriptClientRE = /<\s*script[^>]*\bclient\b[^>]*/
+const scriptLangTsRE = /<\s*script[^>]+\blang=['"]ts['"][^>]*/
+const scriptSetupRE = /<\s*script[^>]+\bsetup\b[^>]*/
+const scriptClientRE = /<\s*script[^>]+\bclient\b[^>]*/
 let index = 1
 
 export function parse(
@@ -44,11 +45,11 @@ export function parse(
 
   const attrs
     = `sfcTsCode="${encodeURIComponent(sfcTsCode)}"\n`
-    + `sfcJsCode="${encodeURIComponent(sfcJsCode)}"\n`
-    + `sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"\n`
-    + `sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"\n`
-    + `:metadata='${JSON.stringify(metadata)}'\n`
-    + `v-bind='${JSON.stringify(props)}'\n`
+      + `sfcJsCode="${encodeURIComponent(sfcJsCode)}"\n`
+      + `sfcTsHtml="${encodeURIComponent(sfcTsHtml)}"\n`
+      + `sfcJsHtml="${encodeURIComponent(sfcJsHtml)}"\n`
+      + `:metadata='${JSON.stringify(metadata)}'\n`
+      + `v-bind='${JSON.stringify(props)}'\n`
 
   return {
     name,
@@ -145,7 +146,7 @@ export function generateDemoContainerSuffix() {
 }
 
 function parseModuleContents(content: string) {
-  return [...content.matchAll(/import(.*?)from/sg)]
+  return [...content.matchAll(/import(.*?)from/gs)]
     .map(v => v[1])
     .map(v => v.replace(/[\r\n]/g, ''))
     .map(v => v.replace('* as ', ''))
@@ -158,7 +159,7 @@ function parseModuleContents(content: string) {
     .flatMap(v => v)
 }
 function parseModuleTypes(content: string) {
-  return [...content.matchAll(/import type(.*?)from(.*?)\n/sg)]
+  return [...content.matchAll(/import type(.*?)from(.*?)\n/gs)]
     .map(v => v[0])
 }
 

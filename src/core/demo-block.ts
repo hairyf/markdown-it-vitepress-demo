@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'node:path'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
+import { dirname, resolve } from 'node:path'
 import fs from 'fs-extra'
 import { generateDemoComponent, parseProps } from '../utils'
 

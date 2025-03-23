@@ -1,7 +1,0 @@
-{
-  "extends": "@antfu",
-  "rules": {
-    "vue/component-definition-name-casing": "off",
-    "no-alert": "off"
-  }
-}

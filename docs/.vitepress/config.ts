@@ -1,4 +1,5 @@
 import type { DefaultTheme } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { defineConfig } from 'vitepress'
 import markdownDemo from '../../src'
 
@@ -29,6 +30,11 @@ export default defineConfig({
   description: 'A Markdown plugin',
   themeConfig,
   markdown: {
+    codeTransformers: [
+      transformerTwoslash({ throws: false }),
+    ],
+    // Explicitly load these languages for types hightlighting
+    languages: ['js', 'jsx', 'ts', 'tsx'],
     config(md) {
       md.use(markdownDemo)
     },

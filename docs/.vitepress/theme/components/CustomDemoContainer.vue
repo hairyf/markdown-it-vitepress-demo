@@ -1,21 +1,14 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   sfcTsCode: string
   sfcJsCode: string
-  sfcTsHtml: string
-  sfcJsHtml: string
   title: string
   metadata: object
   expand?: boolean
   a?: number
   b?: object
 }>()
-
-const sfcTsHtml = computed(() => decodeURIComponent(props.sfcTsHtml))
-const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
 </script>
 
 <template>
@@ -27,9 +20,8 @@ const sfcJsHtml = computed(() => decodeURIComponent(props.sfcJsHtml))
     <slot />
     <!-- Highlighted code for the demo -->
     <div>
-      <div class="language-vue" style="flex: 1;" v-html="sfcTsHtml" />
-      <div class="language-vue" style="flex: 1;" v-html="sfcJsHtml" />
+      <slot name="md:sfc-js" />
     </div>
-    <slot name="desc" />
+    <slot name="md:desc" />
   </div>
 </template>

@@ -1,7 +1,8 @@
-import { dirname, resolve } from 'node:path'
+/* eslint-disable regexp/no-super-linear-backtracking */
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
-import mdContainer from 'markdown-it-container'
+import { dirname, resolve } from 'node:path'
 import fs from 'fs-extra'
+import mdContainer from 'markdown-it-container'
 import { generateDemoContainerPrefix, generateDemoContainerSuffix, parseProps } from '../utils'
 
 const demoRE = /^demo\s*(.*)$/

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import defaultContent2, {
-  Custom,
-  Custom2,
-} from './indexcopy'
+// import defaultContent2, {
+//   Custom,
+//   Custom2,
+// } from './indexcopy'
 
 import type { A } from './d'
 import defaultContent from './'
@@ -19,7 +19,7 @@ function onClick() {
 <template>
   <Custom>
     <button @click="onClick">
-      {{ data }} Click Me! {{ defaultContent }} {{ defaultContent2 }}
+      {{ data }} Click Me! {{ defaultContent }}
       {{ anys.default }}
     </button>
   </Custom>
