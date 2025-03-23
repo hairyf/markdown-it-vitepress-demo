@@ -1,6 +1,10 @@
 # markdown-it-vitepress-demo
 
-[![NPM version](https://img.shields.io/npm/v/markdown-it-vitepress-demo?color=a1b858&label=)](https://www.npmjs.com/package/markdown-it-vitepress-demo)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![bundle][bundle-src]][bundle-href]
+[![JSDocs][jsdocs-src]][jsdocs-href]
+[![License][license-src]][license-href]
 
 `markdown-it-vitepress-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers. This means that you need to implement and register the `<demo-container>` component yourself, and `markdown-it-vitepress-demo` makes this process easier.
 
@@ -28,7 +32,6 @@ This is a `description` that can be written using Markdown.
 
 This looks more aesthetically pleasing and adheres better to Markdown syntax.
 
-
 In addition, you can pass the `attrs` parameter to `props`, so you can utilize the [Line Highlighting in Code Blocks](https://vitepress.dev/guide/markdown#line-highlighting-in-code-blocks) feature of VitePress:
 
 ```markdown
@@ -43,6 +46,14 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 ```
 
 > however, it is important to note that `<demo>` is not strictly a component and cannot handle excessively complex custom `props`, such as `v-bind`.
+
+## Twoslash
+
+`markdown-it-vitepress-demo` also supports [Twoslash](https://www.typescriptlang.org/dev/twoslash/) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
+
+```markdown
+<demo src="../demo.vue" title="Demo block" desc="use demo" twoslash />
+```
 
 ## Install
 
@@ -174,7 +185,6 @@ const parameters = computed(() => {
 </template>
 ```
 
-
 ## Development
 
 ```bash
@@ -201,4 +211,17 @@ This project draws inspiration from the following projects:
 
 ## License
 
-[MIT](./LICENSE) License © 2022 [Hairyf](https://github.com/hairyf)
+[MIT](./LICENSE) License © [Hairyf](https://github.com/hairyf)
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/markdown-it-vitepress-demo
+[npm-downloads-src]: https://img.shields.io/npm/dm/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/markdown-it-vitepress-demo
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=markdown-it-vitepress-demo
+[license-src]: https://img.shields.io/github/license/hairyf/markdown-it-vitepress-demo.svg?style=flat&colorA=080f12&colorB=1fa669
+[license-href]: https://github.com/hairyf/markdown-it-vitepress-demo/blob/main/LICENSE
+[jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
+[jsdocs-href]: https://www.jsdocs.io/package/markdown-it-vitepress-demo
