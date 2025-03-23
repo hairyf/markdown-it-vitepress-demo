@@ -19,3 +19,5 @@ features:
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
+
+<demo src="./demo/demo-1.vue" attrs="{4}" twoslash title="Demo block - 1" desc="use demo" />

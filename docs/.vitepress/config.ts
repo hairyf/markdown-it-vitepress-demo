@@ -7,16 +7,6 @@ const themeConfig: DefaultTheme.Config = {
   // https://vitepress.dev/reference/default-theme-config
   nav: [
     { text: 'Home', link: '/' },
-    { text: 'Examples', link: '/markdown-examples' },
-  ],
-
-  sidebar: [
-    {
-      text: 'Examples',
-      items: [
-        { text: 'Demos', link: '/demos' },
-      ],
-    },
   ],
 
   socialLinks: [
@@ -31,10 +21,10 @@ export default defineConfig({
   themeConfig,
   markdown: {
     codeTransformers: [
-      transformerTwoslash({ throws: false }),
+      transformerTwoslash({ throws: false }) as any,
     ],
     // Explicitly load these languages for types hightlighting
-    languages: ['js', 'jsx', 'ts', 'tsx'],
+    languages: ['js', 'jsx', 'ts', 'tsx'] as any,
     config(md) {
       md.use(markdownDemo)
     },
