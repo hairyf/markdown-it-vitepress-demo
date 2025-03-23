@@ -23,9 +23,9 @@ catalogs:
     eslint: ^9.22.0
     lint-staged: ^15.5.0
     simple-git-hooks: ^2.11.1
+    tsup: ^8.4.0
     tsx: ^4.19.3
     typescript: ^5.8.2
-    unbuild: ^3.5.0
     vite: ^6.2.1
   inlined:
     '@antfu/utils': ^9.1.0
