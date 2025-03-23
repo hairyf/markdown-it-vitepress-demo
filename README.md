@@ -90,14 +90,11 @@ const props = defineProps<{
   sfcTsCode: string
   // if using ts, sfcJsCode will transform the to js
   sfcJsCode: string
-  sfcTsHtml: string
-  sfcJsHtml: string
   title: string
   metadata: object
 }>()
 
 const sfcCode = computed(() => decodeURIComponent(props.sfcTsCode || props.sfcJsCode))
-const highlightedHtml = computed(() => decodeURIComponent(props.sfcTsHtml || props.sfcJsHtml))
 </script>
 
 <template>
@@ -106,11 +103,13 @@ const highlightedHtml = computed(() => decodeURIComponent(props.sfcTsHtml || pro
     <!-- copy your demo source code -->
     <div @click="navigator.clipboard.writeText(sfcCode)"> Copy Code </div>
     <!-- The description is rendered in the desc slot -->
-    <slot name="desc" />
+    <slot name="md:desc" />
     <!-- The demo is rendered in the default slot -->
     <slot />
     <!-- highlighted code for the demo -->
-    <div class="language-vue" v-html="highlightedHtml"></div>
+    <slot name="md:sfc-ts" />
+    <!-- or -->
+    <slot name="md:sfc-js" />
   </div>
 </template>
 ```
@@ -124,8 +123,6 @@ The `demo-container` component will receive relevant information about the demo.
 const props = defineProps<{
   sfcTsCode: string
   sfcJsCode: string
-  sfcTsHtml: string
-  sfcJsHtml: string
   title: string
   // metadata returns information about the demo during build (absolutePath, relativePath, fileName)
   metadata: object
