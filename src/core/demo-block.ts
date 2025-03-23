@@ -30,11 +30,11 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
       }
 
       const demoScripts = generateDemoComponent(md, env, {
-        desc,
-        attrs,
-        props: otherProps,
         code: fs.readFileSync(srcPath, 'utf-8'),
         path: resolve(markdownPath, props.src),
+        props: otherProps,
+        attr: attrs,
+        desc,
       })
 
       return demoScripts

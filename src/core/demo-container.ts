@@ -1,4 +1,3 @@
-/* eslint-disable regexp/no-super-linear-backtracking */
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 import { dirname, resolve } from 'node:path'
 import fs from 'fs-extra'
@@ -30,11 +29,11 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
           throw new Error(`rendering ${env.path}: ${srcPath} does not exist`)
 
         return generateDemoContainerPrefix(md, env, {
-          desc,
-          attrs,
-          props: otherProps,
           code: fs.readFileSync(srcPath, 'utf-8'),
           path: resolve(markdownPath, props.src),
+          props: otherProps,
+          attr: attrs,
+          desc,
         })
       }
       else {

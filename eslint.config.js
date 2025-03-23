@@ -8,6 +8,8 @@ export default antfu(
   },
   {
     rules: {
+      'regexp/no-contradiction-with-assertion': 'off',
+      'regexp/no-super-linear-backtracking': 'off',
       'no-alert': 'off',
     },
   },
