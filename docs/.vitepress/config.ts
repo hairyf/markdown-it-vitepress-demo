@@ -29,4 +29,5 @@ export default defineConfig({
       md.use(markdownDemo)
     },
   },
+  vite: { ssr: { noExternal: ['naive-ui'] } },
 })
