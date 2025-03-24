@@ -26,6 +26,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
+    "client",
     "dist"
   ],
   "scripts": {
@@ -41,13 +42,18 @@
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
+  "peerDependencies": {
+    "naive-ui": "catalog:"
+  },
   "dependencies": {
     "@vue/compiler-core": "catalog:",
     "@vue/compiler-sfc": "catalog:",
+    "codesandbox": "catalog:",
     "esbuild": "catalog:",
     "fs-extra": "catalog:",
     "markdown-it-container": "catalog:",
-    "oxc-transform": "catalog:"
+    "oxc-transform": "catalog:",
+    "synckit": "catalog:"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:cli",
@@ -60,6 +66,7 @@
     "bumpp": "catalog:cli",
     "eslint": "catalog:cli",
     "lint-staged": "catalog:cli",
+    "naive-ui": "catalog:",
     "simple-git-hooks": "catalog:cli",
     "tinyexec": "catalog:utils",
     "tsup": "catalog:cli",

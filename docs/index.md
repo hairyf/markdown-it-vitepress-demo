@@ -8,4 +8,11 @@ hero:
   tagline: "For Vitepress"
 ---
 
-<demo src="./demo/demo-1.vue" attrs="{4}" twoslash title="Demo block - 1" desc="use demo" />
+<demo
+  title="Print Hello World"
+  desc="This is a simple example of a Vue component that prints 'Hello World' to the console."
+  src="./index.vue"
+  attrs="{4}"
+  twoslash
+  expand
+/>

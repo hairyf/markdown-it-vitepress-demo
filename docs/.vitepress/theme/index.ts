@@ -1,15 +1,17 @@
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
-// https://vitepress.dev/guide/custom-theme
+import TwoslashFloating from '@shikijs/vitepress-twoslash/client'
 import Theme from 'vitepress/theme'
-// your demo component
-import CustomDemoContainer from './components/CustomDemoContainer.vue'
-import './style.css'
+import NaiveUIContainer from '../../../client/naive-ui'
 import '@shikijs/vitepress-twoslash/style.css'
+import './style.css'
 
 export default {
   ...Theme,
-  enhanceApp({ app }) {
-    app.component('demo-container', CustomDemoContainer)
-    app.use(TwoslashFloatingVue)
+  async enhanceApp({ app }) {
+    if (!import.meta.env.SSR) {
+      const { default: NaiveUI } = await import('naive-ui')
+      app.use(NaiveUI)
+    }
+    app.use(TwoslashFloating)
+    app.use(NaiveUIContainer)
   },
 }

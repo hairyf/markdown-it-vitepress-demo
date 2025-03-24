@@ -9,10 +9,13 @@ catalog:
   '@types/markdown-it-container': ^2.0.10
   '@vue/compiler-core': ^3.5.13
   '@vue/compiler-sfc': ^3.5.13
+  codesandbox: ^2.2.3
   esbuild: ^0.25.1
   fs-extra: ^11.3.0
   markdown-it-container: ^4.0.0
+  naive-ui: ^2.41.0
   oxc-transform: ^0.61.1
+  synckit: ^0.10.2
   vitepress: ^1.6.3
   vue: ^3.5.13
 catalogs:

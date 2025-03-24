@@ -6,7 +6,13 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-`markdown-it-vitepress-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers. This means that you need to implement and register the `<demo-container>` component yourself, and `markdown-it-vitepress-demo` makes this process easier.
+## Install
+
+```bash
+npm install markdown-it-vitepress-demo --save-dev
+```
+
+`markdown-it-vitepress-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers.
 
 With this plugin, you can use the `<demo>` tag in Markdown to reference a demo container. For example:
 
@@ -55,12 +61,6 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 <demo src="../demo.vue" title="Demo block" desc="use demo" twoslash />
 ```
 
-## Install
-
-```bash
-npm install markdown-it-vitepress-demo --save-dev
-```
-
 ## Usage
 
 ```js
@@ -90,6 +90,39 @@ export default {
   },
 }
 ```
+
+## Presets
+
+`markdown-it-vitepress-demo` pre-set common component library themes, which you can directly use:
+
+<details>
+<summary>Naive UI</summary><br>
+
+```sh
+npm install markdown-it-vitepress-demo naive-ui --save-dev
+```
+
+```js
+import TwoslashFloating from '@shikijs/vitepress-twoslash/client'
+import NaiveUIContainer from 'markdown-it-vitepress-demo/client/naive-ui'
+import '@shikijs/vitepress-twoslash/style.css'
+
+export default {
+  ...Theme,
+  async enhanceApp({ app, router, siteData }) {
+    if (!import.meta.env.SSR) {
+      const { default: NaiveUI } = await import('naive-ui')
+      app.use(NaiveUI)
+    }
+    app.use(TwoslashFloating)
+    app.use(NaiveUIContainer)
+  },
+}
+```
+
+<br></details>
+
+## Customs
 
 The `demo-container` component will receive relevant information about the demo, and you need to implement the rendering of the demo:
 
