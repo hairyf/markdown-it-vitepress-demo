@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseProps } from '../src/utils'
+import { parseProps } from '../src/core/utils'
 
 describe('props', () => {
   it('parse-base', () => {

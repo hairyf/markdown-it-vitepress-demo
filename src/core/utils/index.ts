@@ -1,7 +1,7 @@
 import type { AttributeNode, ElementNode } from '@vue/compiler-core'
 import { baseParse } from '@vue/compiler-core'
 
-function getPropsMap(attrs: any[]) {
+function getPropsMappings(attrs: any[]) {
   const map: Record<string, any> = {}
   for (const { name, value, exp, arg } of attrs) {
     if (name === 'bind') {
@@ -20,10 +20,8 @@ function getPropsMap(attrs: any[]) {
 }
 
 export function parseProps(content: string) {
-  const ast = baseParse(content)
-  const demoElement = ast.children[0] as ElementNode
-
-  return getPropsMap(demoElement.props as AttributeNode[])
+  const element = baseParse(content).children[0] as ElementNode
+  return getPropsMappings(element.props as AttributeNode[])
 }
 
 export function isUndefined(v: any): v is undefined {
