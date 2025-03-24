@@ -49,10 +49,13 @@ app.mount("#app");
 function getDependencies(code: string) {
   return (code.match(/from '([^']+)'\n/g) || [])
     .map(v => v.slice(6, v.length - 2))
-    .reduce((prevV, dep) => {
-      prevV[dep] = 'latest'
-      return prevV
-    }, {})
+    .reduce<Record<string, string>>(
+      (prev, dep) => {
+        prev[dep] = 'latest'
+        return prev
+      },
+      {},
+    )
 }
 
 export function getCodeSandboxParams(code: string) {
