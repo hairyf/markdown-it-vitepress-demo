@@ -1,4 +1,4 @@
-# markdown-it-vitepress-demo
+# vitepress-plugin-demo
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -18,10 +18,10 @@
 ## Install
 
 ```bash
-npm install markdown-it-vitepress-demo --save-dev
+npm install vitepress-plugin-demo --save-dev
 ```
 
-`markdown-it-vitepress-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers.
+`vitepress-plugin-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers.
 
 With this plugin, you can use the `<demo>` tag in Markdown to reference a demo container. For example:
 
@@ -64,7 +64,7 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 
 ## Twoslash
 
-`markdown-it-vitepress-demo` also supports [vitepress/twoslash](https://shiki.style/packages/vitepress) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
+`vitepress-plugin-demo` also supports [vitepress/twoslash](https://shiki.style/packages/vitepress) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
 
 ```markdown
 <demo src="../demo.vue" title="Demo block" desc="use demo" twoslash />
@@ -77,7 +77,7 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 export default defineConfig({
   markdown: {
     config(md) {
-      md.use(require('markdown-it-vitepress-demo'))
+      md.use(require('vitepress-plugin-demo'))
     },
   },
 })
@@ -102,18 +102,18 @@ export default {
 
 ## Presets
 
-`markdown-it-vitepress-demo` pre-set common component library themes, which you can directly use:
+`vitepress-plugin-demo` pre-set common component library themes, which you can directly use:
 
 <details>
 <summary>Naive UI</summary><br>
 
 ```sh
-npm install markdown-it-vitepress-demo naive-ui --save-dev
+npm install vitepress-plugin-demo naive-ui --save-dev
 ```
 
 ```js
 import TwoslashFloating from '@shikijs/vitepress-twoslash/client'
-import NaiveUIContainer from 'markdown-it-vitepress-demo/client/naive-ui'
+import NaiveUIContainer from 'vitepress-plugin-demo/client/naive-ui'
 import '@shikijs/vitepress-twoslash/style.css'
 
 export default {
@@ -257,13 +257,13 @@ This project draws inspiration from the following projects:
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/markdown-it-vitepress-demo
-[npm-downloads-src]: https://img.shields.io/npm/dm/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/markdown-it-vitepress-demo
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/markdown-it-vitepress-demo?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=markdown-it-vitepress-demo
-[license-src]: https://img.shields.io/github/license/hairyf/markdown-it-vitepress-demo.svg?style=flat&colorA=080f12&colorB=1fa669
-[license-href]: https://github.com/hairyf/markdown-it-vitepress-demo/blob/main/LICENSE
+[npm-version-src]: https://img.shields.io/npm/v/vitepress-plugin-demo?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/vitepress-plugin-demo
+[npm-downloads-src]: https://img.shields.io/npm/dm/vitepress-plugin-demo?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/vitepress-plugin-demo
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/vitepress-plugin-demo?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=vitepress-plugin-demo
+[license-src]: https://img.shields.io/github/license/hairyf/vitepress-plugin-demo.svg?style=flat&colorA=080f12&colorB=1fa669
+[license-href]: https://github.com/hairyf/vitepress-plugin-demo/blob/main/LICENSE
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/markdown-it-vitepress-demo
+[jsdocs-href]: https://www.jsdocs.io/package/vitepress-plugin-demo
