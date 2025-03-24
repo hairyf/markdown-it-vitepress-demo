@@ -22,7 +22,7 @@ async function importEslint() {
   if (promise)
     return promise
   return promise = import('eslint')
-    .then(({ ESLint }) => eslint = new ESLint({ fix: true }))
+    .then(({ ESLint }) => eslint = new ESLint({ fix: true, cache: true }))
     .catch(() => null)
 }
 
