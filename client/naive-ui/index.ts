@@ -11,7 +11,7 @@ const plugin: Plugin<Options> = {
     if (options?.github) {
       // TODO: add github link by default props
     }
-    if (options.codesandbox) {
+    if (options?.codesandbox) {
       // TODO: add codesandbox link by default props
     }
     app.component('demo-container', NaiveUIContainer)
