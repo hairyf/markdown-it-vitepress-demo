@@ -38,7 +38,7 @@
     "start": "tsx src/index.ts",
     "test": "vitest",
     "docs": "vitepress dev docs",
-    "docs:build": "npm run build && vitepress build docs",
+    "docs:build": "vitepress build docs",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
