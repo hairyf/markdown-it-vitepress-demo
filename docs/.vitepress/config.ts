@@ -16,7 +16,7 @@ const themeConfig: DefaultTheme.Config = {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Markdown Vitepress Demo',
+  title: 'Vitepress Markdown',
   description: 'A Markdown plugin',
   themeConfig,
   markdown: {

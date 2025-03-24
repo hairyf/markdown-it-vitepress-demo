@@ -3,9 +3,8 @@
 layout: home
 
 hero:
-  name: "Markdown Vitepress Demo"
-  text: "A Markdown plugin"
-  tagline: "For Vitepress"
+  name: "Demo of Markdown"
+  text: "In Vitepress"
 ---
 
 <demo
