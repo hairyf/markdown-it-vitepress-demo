@@ -34,7 +34,7 @@ function script(script: SFCScriptBlock | undefined | null, lang: 'js' | 'ts') {
   }
   if (script.lang === 'ts' && lang === 'js') {
     return join([
-      `<script${attrs(script.attrs)}>`,
+      `<script${attrs(script.attrs, ['lang'])}>`,
       tsToJs(script.content),
       '</script>',
     ])
@@ -70,6 +70,7 @@ function attrs(attrs: Record<string, string | boolean> = {}, filterKeys: string[
 
   return code ? ` ${code}` : ''
 }
+
 function joins(code: (string | undefined)[]) {
   return code.filter(Boolean).map(code => code?.trim()).join('\n\n')
 }
