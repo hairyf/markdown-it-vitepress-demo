@@ -2,7 +2,7 @@ import type { SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compi
 import { parse } from '@vue/compiler-sfc'
 import { tsToJs } from './esbuild'
 
-export function transformSfcCode(code: string, lang: 'js' | 'ts') {
+export function transformSfc(code: string, lang: 'js' | 'ts') {
   const { descriptor } = parse(code)
   return joins([
     script(descriptor.scriptSetup, lang),

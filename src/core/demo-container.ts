@@ -2,7 +2,8 @@ import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 import { dirname, resolve } from 'node:path'
 import fs from 'fs-extra'
 import mdContainer from 'markdown-it-container'
-import { generateDemoContainerPrefix, generateDemoContainerSuffix, parseProps } from '../utils'
+import * as generator from './generator'
+import { parseProps } from './utils'
 
 const demoRE = /^demo\s*(.*)$/
 
@@ -28,7 +29,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
         if (!fs.existsSync(srcPath))
           throw new Error(`rendering ${env.path}: ${srcPath} does not exist`)
 
-        return generateDemoContainerPrefix(md, env, {
+        return generator.vue.generateDemoContainerPrefix(md, env, {
           code: fs.readFileSync(srcPath, 'utf-8'),
           path: resolve(markdownPath, props.src),
           props: otherProps,
@@ -37,7 +38,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
         })
       }
       else {
-        return generateDemoContainerSuffix()
+        return generator.vue.generateDemoContainerSuffix()
       }
     },
   })

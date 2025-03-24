@@ -1,8 +1,8 @@
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
-import type { Metadata } from '../types'
+import type { Metadata } from '../../../types'
 import { relative } from 'node:path'
 import process from 'node:process'
-import { transformSfcCode } from './transform'
+import { transformSfc } from './transform'
 import { normalizePath, parseMdAttrs, trim } from './util'
 
 export interface GenerateOptions {
@@ -39,8 +39,8 @@ export function parse(
   attr = attrs.join(',')
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const sfcTsCode = isUsingTS ? transformSfcCode(code, 'ts') : ''
-  const sfcJsCode = transformSfcCode(code, 'js')
+  const sfcTsCode = isUsingTS ? transformSfc(code, 'ts') : ''
+  const sfcJsCode = transformSfc(code, 'js')
   const sfcTsHtml = isUsingTS ? highlight(sfcTsCode, 'vue', attr) : ''
   const sfcJsHtml = highlight!(sfcJsCode, 'vue', attr)
 
@@ -105,8 +105,7 @@ export function injectImportStatement(
     env.sfcBlocks.scripts = []
   const tags = env.sfcBlocks.scripts
 
-  const isUsingTS
-    = tags.findIndex(tag => scriptLangTsRE.test(tag.content)) > -1
+  const isUsingTS = tags.findIndex(tag => scriptLangTsRE.test(tag.content)) > -1
 
   const setupScriptIndex = tags?.findIndex((tag) => {
     return (

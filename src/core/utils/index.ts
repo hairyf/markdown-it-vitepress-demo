@@ -1,6 +1,5 @@
 import type { AttributeNode, ElementNode } from '@vue/compiler-core'
 import { baseParse } from '@vue/compiler-core'
-import { isUndefined } from './util'
 
 function getPropsMap(attrs: any[]) {
   const map: Record<string, any> = {}
@@ -25,4 +24,8 @@ export function parseProps(content: string) {
   const demoElement = ast.children[0] as ElementNode
 
   return getPropsMap(demoElement.props as AttributeNode[])
+}
+
+export function isUndefined(v: any): v is undefined {
+  return v === undefined || v === null
 }

@@ -1,7 +1,8 @@
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 import { dirname, resolve } from 'node:path'
 import fs from 'fs-extra'
-import { generateDemoComponent, parseProps } from '../utils'
+import * as generator from './generator'
+import { parseProps } from './utils'
 
 export function markdownDemoTagBlock(md: MarkdownRenderer) {
   function addRenderRule(type: string) {
@@ -29,7 +30,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         return defaultRender!(tokens, idx, options, env, self)
       }
 
-      const demoScripts = generateDemoComponent(md, env, {
+      const demoScripts = generator.vue.generateDemoComponent(md, env, {
         code: fs.readFileSync(srcPath, 'utf-8'),
         path: resolve(markdownPath, props.src),
         props: otherProps,
