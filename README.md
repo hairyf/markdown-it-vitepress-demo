@@ -9,6 +9,7 @@
 ## Features
 
 - ✨ Use the `<demo>` or `container` in Markdown to reference a demo container.
+- ♾️ Automatically convert TS code and provide JS demo code.
 - 📝 Use Markdown syntax by you demo block description.
 - 💡 Support [twoslash](https://shiki.style/packages/vitepress) syntax highlighting.
 - 📦️ Supports multiple [presets](#presets), ready to use out of the box.
