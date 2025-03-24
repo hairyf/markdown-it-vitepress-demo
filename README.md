@@ -6,6 +6,14 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
+## Features
+
+- ✨ Use the `<demo>` or `container` in Markdown to reference a demo container.
+- 📝 Use Markdown syntax by you demo block description.
+- 💡 Support [Twoslash](https://shiki.style/packages/vitepress) syntax highlighting.
+- 📦️ Supports multiple [presets](#presets), ready to use out of the box.
+- 🎨 Customize the demo container to suit your needs.
+
 ## Install
 
 ```bash
