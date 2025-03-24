@@ -63,7 +63,7 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 
 ## Twoslash
 
-`markdown-it-vitepress-demo` also supports [Twoslash](https://www.typescriptlang.org/dev/twoslash/) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
+`markdown-it-vitepress-demo` also supports [vitepress/twoslash](https://shiki.style/packages/vitepress) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
 
 ```markdown
 <demo src="../demo.vue" title="Demo block" desc="use demo" twoslash />
