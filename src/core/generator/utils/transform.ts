@@ -1,15 +1,24 @@
 import type { SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compiler-sfc'
 import { parse } from '@vue/compiler-sfc'
 import { tsToJs } from './esbuild'
+import { format } from './eslint'
 
-export function transformSfc(code: string, lang: 'js' | 'ts') {
+export interface TransformSfcOptions {
+  lang: 'js' | 'ts'
+  fix?: boolean
+}
+
+export function transformSfc(code: string, { lang, fix }: TransformSfcOptions) {
   const { descriptor } = parse(code)
-  return joins([
+  code = joins([
     script(descriptor.scriptSetup, lang),
     script(descriptor.script, lang),
     template(descriptor.template),
     styles(descriptor.styles),
   ])
+  if (fix)
+    code = format(code, 'vue')
+  return code
 }
 
 function script(script: SFCScriptBlock | undefined | null, lang: 'js' | 'ts') {
@@ -35,11 +44,12 @@ function script(script: SFCScriptBlock | undefined | null, lang: 'js' | 'ts') {
 function template(template: SFCTemplateBlock | undefined | null) {
   if (!template)
     return ''
-  return join([
+
+  return [
     `<template${attrs(template.attrs)}>`,
     template.content,
     '</template>',
-  ])
+  ].join('')
 }
 
 function styles(styles: SFCStyleBlock[]) {

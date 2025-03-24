@@ -43,10 +43,10 @@ export function parse(
   attr = attrs.join(',')
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
-  const sfcTsCode = isUsingTS ? transformSfc(code, 'ts') : ''
-  const sfcJsCode = transformSfc(code, 'js')
-  const sfcTsHtml = isUsingTS ? highlight(sfcTsCode, 'vue', attr) : ''
-  const sfcJsHtml = highlight!(sfcJsCode, 'vue', attr)
+  const sfcTsCode = isUsingTS ? transformSfc(code, { lang: 'ts' }) : ''
+  const sfcJsCode = transformSfc(code, { lang: 'js', fix: isUsingTS })
+  const sfcTsHtml = isUsingTS ? pre(highlight(sfcTsCode, 'vue', attr)) : ''
+  const sfcJsHtml = pre(highlight!(sfcJsCode, 'vue', attr))
 
   const highlightedHtml = sfcTsHtml || sfcJsHtml
   const descriptionHtml = md.renderInline(desc || '')
@@ -55,6 +55,12 @@ export function parse(
     absolutePath: path,
     relativePath: normalizePath(relative(process.cwd(), path)),
     fileName: path.split('/').pop() || '',
+  }
+
+  function pre(code: string) {
+    return code
+      .replace(/\{\{/g, '&#123;&#123;')
+      .replace(/\}\}/g, '&#125;&#125;')
   }
 
   const props

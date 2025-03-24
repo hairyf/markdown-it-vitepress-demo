@@ -4,10 +4,11 @@ import { dependencies, name } from './package.json'
 export default defineConfig(() => {
   return {
     external: Object.keys(dependencies || {}),
-    entry: ['./src/index.ts'],
+    entry: ['./src'],
     format: ['esm', 'cjs'],
     clean: true,
     dts: true,
+    splitting: false,
     name,
   }
 })
