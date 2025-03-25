@@ -20,6 +20,7 @@
   "sideEffects": false,
   "exports": {
     ".": "./dist/index.mjs",
+    "./client/naive-ui": "./client/naive-ui/index.ts",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.mjs",
