@@ -1,6 +1,6 @@
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
+import fs from 'node:fs'
 import { dirname, resolve } from 'node:path'
-import fs from 'fs-extra'
 import mdContainer from 'markdown-it-container'
 import * as generator from './generator'
 import { parseProps } from './utils'
