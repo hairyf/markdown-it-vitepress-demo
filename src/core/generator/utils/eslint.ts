@@ -6,7 +6,7 @@ export interface Format {
 }
 
 const syncify = createWorker<Format>(
-  path.join(import.meta.dirname, './eslint.worker'),
+  path.join(import.meta.dirname, './eslint.worker.mjs'),
 )
 
 export const format: Format = (code, lang) => {

@@ -19,11 +19,11 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "client",
@@ -49,8 +49,6 @@
     "@vue/compiler-core": "catalog:",
     "@vue/compiler-sfc": "catalog:",
     "codesandbox": "catalog:",
-    "esbuild": "catalog:",
-    "fs-extra": "catalog:",
     "markdown-it-container": "catalog:",
     "oxc-transform": "catalog:",
     "synckit": "catalog:"
@@ -64,6 +62,7 @@
     "@types/markdown-it-container": "catalog:",
     "@types/node": "catalog:types",
     "bumpp": "catalog:cli",
+    "esbuild-plugin-file-path-extensions": "catalog:",
     "eslint": "catalog:cli",
     "lint-staged": "catalog:cli",
     "naive-ui": "catalog:",
