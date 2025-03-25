@@ -3,9 +3,7 @@ import { markdownDemoContainer, markdownDemoTagBlock } from './core'
 
 export * from './types'
 
-function use(md: MarkdownRenderer) {
+export function demoMdPlugin(md: MarkdownRenderer) {
   markdownDemoTagBlock(md)
   markdownDemoContainer(md)
 }
-
-export default use
