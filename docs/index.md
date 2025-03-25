@@ -5,6 +5,12 @@ layout: home
 hero:
   name: "Demo of Markdown"
   text: "In Vitepress"
+  image: "/logo.svg"
+  tagline: "Start your component development."
+  actions:
+    - theme: brand
+      text: Get Started
+      link: https://github.com/hairyf/vitepress-plugin-demo?tab=readme-ov-file#install
 ---
 
 <demo

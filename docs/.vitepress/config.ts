@@ -10,8 +10,13 @@ const themeConfig: DefaultTheme.Config = {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Vitepress Markdown',
+  title: 'Vitepress Markdown Demo',
   description: 'A Markdown plugin',
+
+  head: [
+    ['link', { rel: 'icon', href: '/logo.svg' }],
+    ['meta', { name: 'author', content: 'Hairyf' }],
+  ],
   themeConfig,
   markdown: {
     codeTransformers: [
