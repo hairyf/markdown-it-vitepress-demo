@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { getCodeSandboxParams } from '../utils'
 
 export default defineComponent({
@@ -9,15 +9,30 @@ export default defineComponent({
     tooltip: String,
   },
   setup(props) {
+    const parameters = ref()
+    const error = ref()
+    watch(
+      () => props.code,
+      async () => {
+        try {
+          parameters.value = await getCodeSandboxParams(props.code || '')
+        }
+        catch (err) {
+          error.value = err
+        }
+      },
+      { immediate: true },
+    )
     return {
-      parameters: computed(() => getCodeSandboxParams(props.code || '')),
+      parameters,
+      error,
     }
   },
 })
 </script>
 
 <template>
-  <n-tooltip>
+  <n-tooltip v-if="!error">
     <template #trigger>
       <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank" style="display: flex; padding: 0">
         <input type="hidden" name="parameters" :value="parameters">

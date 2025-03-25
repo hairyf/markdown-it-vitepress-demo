@@ -1,5 +1,3 @@
-import { getParameters } from 'codesandbox/lib/api/define'
-
 const indexHtml = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -58,8 +56,9 @@ function getDependencies(code: string) {
     )
 }
 
-export function getCodeSandboxParams(code: string) {
-  return (getParameters as any)({
+export async function getCodeSandboxParams(code: string) {
+  const { getParameters } = await import('codesandbox/lib/api/define')
+  return getParameters({
     files: {
       'package.json': {
         content: {
@@ -89,5 +88,5 @@ export function getCodeSandboxParams(code: string) {
         content: mainJs,
       },
     },
-  })
+  } as any)
 }

@@ -109,9 +109,6 @@ importers:
       '@vue/compiler-sfc':
         specifier: 'catalog:'
         version: 3.5.13
-      codesandbox:
-        specifier: 'catalog:'
-        version: 2.2.3
       markdown-it-container:
         specifier: 'catalog:'
         version: 4.0.0
@@ -146,6 +143,9 @@ importers:
       bumpp:
         specifier: catalog:cli
         version: 10.1.0
+      codesandbox:
+        specifier: 'catalog:'
+        version: 2.2.3
       esbuild-plugin-file-path-extensions:
         specifier: 'catalog:'
         version: 2.1.4

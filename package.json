@@ -44,12 +44,12 @@
     "prepare": "simple-git-hooks"
   },
   "peerDependencies": {
+    "codesandbox": "catalog:",
     "naive-ui": "catalog:"
   },
   "dependencies": {
     "@vue/compiler-core": "catalog:",
     "@vue/compiler-sfc": "catalog:",
-    "codesandbox": "catalog:",
     "markdown-it-container": "catalog:",
     "oxc-transform": "catalog:",
     "synckit": "catalog:"
@@ -63,6 +63,7 @@
     "@types/markdown-it-container": "catalog:",
     "@types/node": "catalog:types",
     "bumpp": "catalog:cli",
+    "codesandbox": "catalog:",
     "esbuild-plugin-file-path-extensions": "catalog:",
     "eslint": "catalog:cli",
     "lint-staged": "catalog:cli",
