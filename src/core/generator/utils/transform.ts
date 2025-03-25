@@ -1,6 +1,6 @@
 import type { SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compiler-sfc'
 import { parse } from '@vue/compiler-sfc'
-import { tsToJs } from './esbuild'
+import { tsToJs } from './convert'
 import { format } from './eslint'
 
 export interface TransformSfcOptions {

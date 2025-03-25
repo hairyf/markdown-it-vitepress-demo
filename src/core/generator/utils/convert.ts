@@ -1,4 +1,4 @@
-import { transformSync } from 'esbuild'
+import { transform } from 'oxc-transform'
 
 export function parseModuleContents(content: string) {
   return [...content.matchAll(/import(.*?)from/gs)]
@@ -34,13 +34,7 @@ export function tsToJs(content?: string) {
     beforeContent = beforeContent.replace(str, line)
   })
 
-  let { code } = transformSync(beforeContent, {
-    loader: 'ts',
-    minify: false,
-    minifyWhitespace: false,
-    treeShaking: false,
-    charset: 'utf8',
-  })
+  let { code } = transform('index.ts', beforeContent)
 
   code = code
     .replace(/__blank_line;/g, '')
