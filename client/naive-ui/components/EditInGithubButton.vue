@@ -1,7 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import EditIcon from '../icons/Compose16Regular.js'
-import { githubBlobURL } from '../utils'
 
 export default defineComponent({
   name: 'EditOnGithubButton',
@@ -9,9 +8,8 @@ export default defineComponent({
     EditIcon,
   },
   props: {
-    blobURL: {
+    github: {
       type: String,
-      default: githubBlobURL,
     },
     relativePath: {
       type: String,
@@ -23,7 +21,7 @@ export default defineComponent({
   },
   setup(props) {
     function open() {
-      window.open(props.blobURL + props.relativePath, '__blank')
+      window.open(`${props.github}/${props.relativePath}`, '__blank')
     }
     return { open }
   },

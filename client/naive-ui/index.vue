@@ -1,15 +1,16 @@
 <script lang="ts" setup>
+import type { Codeeditor } from 'codeeditor-kit'
 import Container from './Container.vue'
 
 const props = defineProps<{
   sfcTsCode: string
   // if using ts, sfcJsCode will transform the to js
   sfcJsCode: string
-  sfcTsHtml: string
-  sfcJsHtml: string
-  title: string
   metadata: Record<string, any>
+  title: string
   expand?: boolean
+  github?: string
+  codeeditor?: Codeeditor
 }>()
 </script>
 

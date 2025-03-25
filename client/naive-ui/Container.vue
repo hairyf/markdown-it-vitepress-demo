@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import type { Codeeditor } from 'codeeditor-kit'
+import { computed, getCurrentInstance, ref } from 'vue'
 import CopyCodeButton from './components/CopyCodeButton.vue'
-import EditOnGithubButton from './components/EditOnGithubButton.vue'
-import EditOnSandboxButton from './components/EditOnSandboxButton.vue'
+import EditInCodeSandboxButton from './components/EditInCodeSandboxButton.vue'
+import EditInGithubButton from './components/EditInGithubButton.vue'
+import EditInStackblitzButton from './components/EditInStackblitzButton.vue'
 import ExpandToggleButton from './components/ExpandToggleButton.vue'
 import NaiveContainer from './components/NaiveContainer.vue'
 import { i18n } from './composables'
@@ -11,10 +13,11 @@ const props = defineProps<{
   sfcTsCode: string
   // if using ts, sfcJsCode will transform the to js
   sfcJsCode: string
-  github?: string
-  title: string
   metadata: Record<string, any>
+  title: string
   expand?: boolean
+  github?: string
+  codeeditor?: Codeeditor
 }>()
 
 const visible = ref(props.expand ?? false)
@@ -23,21 +26,23 @@ const { t } = i18n({
   'zh-CN': {
     show: '显示代码',
     hide: '收起代码',
-    editOnGithub: '在 GitHub 中编辑',
+    editInGithub: '在 GitHub 中编辑',
     editInCodeSandbox: '在 CodeSandbox 中编辑',
+    editInStackblitz: '在 Stackblitz 中编辑',
     copyCode: '复制代码',
     copySuccess: '复制成功',
   },
   'en-US': {
     show: 'Show Code',
     hide: 'Hide Code',
-    editOnGithub: 'Edit on GitHub',
+    editInGithub: 'Edit on GitHub',
     editInCodeSandbox: 'Edit in CodeSandbox',
+    editInStackblitz: 'Edit in Stackblitz',
     copyCode: 'Copy Code',
     copySuccess: 'Successfully Copied',
   },
 })
-
+const instance = getCurrentInstance()
 const sfcTsCode = computed(() => decodeURIComponent(props.sfcTsCode))
 const sfcJsCode = computed(() => decodeURIComponent(props.sfcJsCode))
 
@@ -45,30 +50,33 @@ const isUsingTs = computed(() => !!props.sfcTsCode)
 
 const sfcCode = computed(() => isUsingTs.value ? sfcTsCode.value : sfcJsCode.value)
 
-const showTs = ref(isUsingTs.value)
+const showLanguage = ref(isUsingTs.value ? 'ts' : 'js')
+
+const codeeditor = props.codeeditor || instance?.appContext.config.globalProperties.$codeeditor
+const editors = codeeditor?.$editors || []
 </script>
 
 <template>
   <NaiveContainer :id="metadata.fileName" :title="title">
     <template #header-extra>
-      <EditOnSandboxButton
-        :code="sfcCode"
+      <EditInStackblitzButton
+        v-if="editors.includes('stackblitz')"
+        :tooltip="t('editInStackblitz')"
+        @click="codeeditor?.open('stackblitz', $props)"
+      />
+      <EditInCodeSandboxButton
+        v-if="editors.includes('codesandbox')"
         :tooltip="t('editInCodeSandbox')"
+        @click="codeeditor?.open('codesandbox', $props)"
       />
-      <EditOnGithubButton
+      <EditInGithubButton
+        v-if="github || $github"
         :relative-path="metadata.relativePath"
-        :tooltip="t('editOnGithub')"
-        :glob-url="github"
+        :tooltip="t('editInGithub')"
+        :github="github || $github"
       />
-      <CopyCodeButton
-        :code="sfcCode"
-        :success-text="t('copySuccess')"
-        :tooltip="t('copyCode')"
-      />
-      <ExpandToggleButton
-        :tooltip="!visible ? t('show') : t('hide')"
-        @click="visible = !visible"
-      />
+      <CopyCodeButton :code="sfcCode" :success-text="t('copySuccess')" :tooltip="t('copyCode')" />
+      <ExpandToggleButton :tooltip="!visible ? t('show') : t('hide')" @click="visible = !visible" />
     </template>
     <n-p v-if="$slots['md:desc']" class="desc">
       <slot name="md:desc" />
@@ -76,12 +84,8 @@ const showTs = ref(isUsingTs.value)
     <slot />
     <template v-if="visible" #footer>
       <n-tabs
-        v-if="isUsingTs"
-        size="small"
-        type="segment"
-        style="padding: 12px 24px 0 24px"
+        v-if="isUsingTs" v-model:value="showLanguage" size="small" type="segment" style="padding: 12px 24px 0 24px"
         animated
-        @update:value="($e) => (showTs = $e === 'ts')"
       >
         <n-tab name="ts">
           TypeScript
@@ -91,20 +95,22 @@ const showTs = ref(isUsingTs.value)
         </n-tab>
       </n-tabs>
 
-      <slot v-if="showTs" name="md:sfc-ts" />
+      <slot v-if="showLanguage === 'ts'" name="md:sfc-ts" />
       <slot v-else name="md:sfc-js" />
     </template>
   </NaiveContainer>
 </template>
 
 <style>
-  .desc:not(:empty) {
-    margin-bottom: 24px;
-  }
-  .demo-card .demo-card__view:not(:first-child) {
-    margin-top: 16px;
-  }
-  .demo-card code.n-text {
-    white-space: nowrap;
-  }
+.desc:not(:empty) {
+  margin-bottom: 24px;
+}
+
+.demo-card .demo-card__view:not(:first-child) {
+  margin-top: 16px;
+}
+
+.demo-card code.n-text {
+  white-space: nowrap;
+}
 </style>

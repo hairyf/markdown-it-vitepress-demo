@@ -1,21 +1,20 @@
-import type { App, Plugin } from 'vue'
+import type { CodeeditorOptions } from 'codeeditor-kit'
+import type { FunctionPlugin } from 'vue'
+import { Codeeditor } from 'codeeditor-kit'
 import NaiveUIContainer from './index.vue'
 
-export interface Options {
+export interface NaiveUIContainerOptions {
+  codeeditor?: CodeeditorOptions<any>
   github?: string
-  codesandbox?: any
 }
 
-const plugin: Plugin<Options> = {
-  install(app: App, options) {
-    if (options?.github) {
-      // TODO: add github link by default props
-    }
-    if (options?.codesandbox) {
-      // TODO: add codesandbox link by default props
-    }
-    app.component('demo-container', NaiveUIContainer)
-  },
+const plugin: FunctionPlugin<[NaiveUIContainerOptions]> = (app, options) => {
+  app.config.globalProperties.$github = options?.github
+  app.config.globalProperties.$codeeditor = new Codeeditor({
+    editors: [],
+    ...options.codeeditor,
+  })
+  app.component('demo-container', NaiveUIContainer)
 }
 export default plugin
 
