@@ -13,6 +13,7 @@ export interface GenerateOptions {
   props: Record<string, any>
   desc?: string
   attr?: string
+  jsAttr?: string
   path: string
   code: string
 }
@@ -32,21 +33,30 @@ export function parse(
     desc,
     path,
     attr,
+    jsAttr,
   }: GenerateOptions,
 ) {
   const highlight = md.options.highlight!
   const name = `DemoComponent${index++}`
   path = normalizePath(path)
   injectImportStatement(name, path, env)
+
   const attrs = parseMdAttrs(attr)
+  const jsAttrs = parseMdAttrs(jsAttr)
   twoslash && attrs.push('twoslash')
+  twoslash && jsAttrs.push('twoslash')
+
   attr = attrs.join(',')
+  jsAttr = jsAttrs.join(',')
 
   const isUsingTS = /lang=['"]ts['"]/.test(code)
+
+  !isUsingTS && (jsAttr = attr)
+
   const sfcTsCode = isUsingTS ? transformSfc(code, { lang: 'ts' }) : ''
   const sfcJsCode = transformSfc(code, { lang: 'js', fix: isUsingTS })
   const sfcTsHtml = isUsingTS ? pre(highlight(sfcTsCode, 'vue', attr)) : ''
-  const sfcJsHtml = pre(highlight!(sfcJsCode, 'vue', attr))
+  const sfcJsHtml = pre(highlight!(sfcJsCode, 'vue', jsAttr))
 
   const highlightedHtml = sfcTsHtml || sfcJsHtml
   const descriptionHtml = md.renderInline(desc || '')

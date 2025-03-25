@@ -21,7 +21,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
         if (!props.src)
           throw new Error('src prop is required')
 
-        const { src, desc, attrs, ...otherProps } = props
+        const { src, desc, attrs, attrsInJs, ...otherProps } = props
 
         const markdownPath = dirname(env.path)
         const srcPath = resolve(markdownPath, src).replace(/\\/g, '/')
@@ -34,6 +34,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
           path: resolve(markdownPath, props.src),
           props: otherProps,
           attr: attrs,
+          jsAttr: attrsInJs,
           desc,
         })
       }

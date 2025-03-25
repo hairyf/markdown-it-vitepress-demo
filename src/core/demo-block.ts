@@ -21,7 +21,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         return defaultRender!(tokens, idx, options, env, self)
       }
 
-      const { src, desc, attrs, ...otherProps } = props
+      const { src, desc, attrs, attrsInJs, ...otherProps } = props
       const markdownPath = dirname(path)
       const srcPath = resolve(markdownPath, src).replace(/\\/g, '/')
 
@@ -35,6 +35,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         path: resolve(markdownPath, props.src),
         props: otherProps,
         attr: attrs,
+        jsAttr: attrsInJs,
         desc,
       })
 

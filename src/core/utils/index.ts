@@ -1,6 +1,10 @@
 import type { AttributeNode, ElementNode } from '@vue/compiler-core'
 import { baseParse } from '@vue/compiler-core'
 
+function camelCase(str: string) {
+  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
+}
+
 function getPropsMappings(attrs: any[]) {
   const map: Record<string, any> = {}
   for (const { name, value, exp, arg } of attrs) {
@@ -21,7 +25,12 @@ function getPropsMappings(attrs: any[]) {
 
 export function parseProps(content: string) {
   const element = baseParse(content).children[0] as ElementNode
-  return getPropsMappings(element.props as AttributeNode[])
+  const props = getPropsMappings(element.props as AttributeNode[])
+  const camelCaseProps: Record<string, any> = {}
+  for (const key in props) {
+    camelCaseProps[camelCase(key)] = props[key]
+  }
+  return camelCaseProps
 }
 
 export function isUndefined(v: any): v is undefined {

@@ -11,7 +11,8 @@ hero:
   title="输出 Hello World"
   desc="这是一个将“Hello World”打印到控制台的Vue组件的简单示例。"
   src="../index.vue"
-  attrs="{4}"
+  attrs="{5}"
+  attrs-in-js="{4}"
   twoslash
   expand
 />

@@ -14,4 +14,5 @@ export function parseMdAttrs(attrs?: string) {
     .replace('{', '')
     .replace('}', '')
     .split(',')
+    .filter(Boolean)
 }
