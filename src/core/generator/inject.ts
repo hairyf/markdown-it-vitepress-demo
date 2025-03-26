@@ -5,8 +5,6 @@ const scriptRE = /<\/script>/
 const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 const scriptClientRE = /<\s*script[^>]*\bclient\b[^>]*/
 
-const injects = new Map<string, Set<string>>()
-
 export function injectImportStatement(
   env: MarkdownEnv,
   name: string | undefined,
@@ -17,16 +15,13 @@ export function injectImportStatement(
     : `import '${path}'`.trim()
   if (!env.sfcBlocks)
     throw new Error('env.sfcBlocks is undefined')
-  injects.set(path, injects.get(path) || new Set())
-
-  if (injects.get(path)?.has(registerStatement)) {
-    return
-  }
-
-  injects.get(path)?.add(registerStatement)
-
   if (!env.sfcBlocks?.scripts)
     env.sfcBlocks.scripts = []
+  for (const script of env.sfcBlocks.scripts) {
+    if (script.content.includes(registerStatement))
+      return
+  }
+
   const tags = env.sfcBlocks.scripts
 
   const isUsingTS = tags.findIndex(tag => scriptLangTsRE.test(tag.content)) > -1
@@ -106,7 +101,7 @@ export function injectIframeStatement(
   injectImportStatement(env, name, `${path}?raw`)
   injectScriptStatement(env, `
       const html${name}ref = ref()
-      const isEnd = ref(false)
+      const isEnd${name} = ref(false)
       onMounted(async () => {
         await nextTick()
         const iframe = html${name}ref.value.querySelector('iframe');
@@ -137,13 +132,13 @@ export function injectIframeStatement(
         \`)
         iframeDocument.close();
         function synchronous() {
-          if (isEnd.value) return;
+          if (isEnd${name}.value) return;
           iframe.style.height = iframeDocument.body.scrollHeight + 'px';
           iframeDocument.documentElement.className = document.documentElement.className;
           requestAnimationFrame(synchronous);
         }
         synchronous();
       })
-      onUnmounted(() => isEnd.value = true)
+      onUnmounted(() => isEnd${name}.value = true)
     `.trim())
 }

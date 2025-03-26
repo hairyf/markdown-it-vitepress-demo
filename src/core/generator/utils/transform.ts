@@ -10,6 +10,7 @@ export interface TransformSfcOptions {
 
 export function transformSfc(code: string, { lang, fix }: TransformSfcOptions) {
   const { descriptor } = parse(code)
+
   code = joins([
     script(descriptor.scriptSetup, lang),
     script(descriptor.script, lang),
@@ -39,6 +40,11 @@ function script(script: SFCScriptBlock | undefined | null, lang: 'js' | 'ts') {
       '</script>',
     ])
   }
+  return join([
+    `<script${attrs(script.attrs)}>`,
+    script.content,
+    '</script>',
+  ])
 }
 
 function template(template: SFCTemplateBlock | undefined | null) {

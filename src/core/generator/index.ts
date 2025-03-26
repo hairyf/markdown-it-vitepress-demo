@@ -50,10 +50,7 @@ export function parse(
   if (path.endsWith('.ts'))
     type = 'ts'
 
-  injectImportStatement(env, '{ ref }', 'vue')
-  injectImportStatement(env, '{ onUnmounted }', 'vue')
-  injectImportStatement(env, '{ onMounted }', 'vue')
-  injectImportStatement(env, '{ nextTick }', 'vue')
+  injectImportStatement(env, '{ ref, onMounted, onUnmounted, nextTick }', 'vue')
 
   if (type === 'html') {
     injectIframeStatement(env, name, path)
@@ -145,7 +142,7 @@ export function parse(
   if (lang === 'tsx') {
     tsCode = code
     tsHtml = pre(highlight(code, lang, attr))
-    jsCode = format(tsToJs(tsCode), 'jsx')
+    jsCode = format(tsToJs(tsCode, { loader: 'tsx', jsx: 'preserve' }), 'jsx')
     jsHtml = pre(highlight(jsCode, lang, jsAttr))
   }
 
