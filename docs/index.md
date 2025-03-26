@@ -28,7 +28,6 @@ hero:
   desc="This is a simple example of a React component that prints 'Hello World' to the console."
   src="./index.tsx"
   type="react"
-  twoslash
   expand
 />
 
@@ -36,7 +35,7 @@ hero:
   title="Print Hello World By HTML"
   desc="This is a simple example of a html that prints 'Hello World' to the console."
   src="./index.html"
-  attrs="{7}"
+  attrs="{22}"
   expand
 />
 

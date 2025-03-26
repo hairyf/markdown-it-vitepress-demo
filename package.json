@@ -19,7 +19,10 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
     "./client/naive-ui": "./client/naive-ui/index.ts",
     "./package.json": "./package.json"
   },
@@ -52,8 +55,8 @@
     "@vue/compiler-core": "catalog:",
     "@vue/compiler-sfc": "catalog:",
     "codeeditor-kit": "catalog:",
+    "esbuild": "catalog:",
     "markdown-it-container": "catalog:",
-    "oxc-transform": "catalog:",
     "synckit": "catalog:"
   },
   "devDependencies": {
