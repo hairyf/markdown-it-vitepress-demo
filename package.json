@@ -44,7 +44,9 @@
     "prepare": "simple-git-hooks"
   },
   "peerDependencies": {
-    "naive-ui": "catalog:"
+    "naive-ui": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "dependencies": {
     "@vue/compiler-core": "catalog:",
