@@ -11,6 +11,8 @@ export default antfu(
       'regexp/no-contradiction-with-assertion': 'off',
       'regexp/no-super-linear-backtracking': 'off',
       'no-alert': 'off',
+      'no-console': 'off',
+      'node/no-path-concat': 'off',
     },
   },
 )

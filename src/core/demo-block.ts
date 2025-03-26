@@ -21,7 +21,7 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         return defaultRender!(tokens, idx, options, env, self)
       }
 
-      const { src, desc, attrs, attrsInJs, ...otherProps } = props
+      const { src, desc, attrs, attrsInJs, type = 'vue', ...otherProps } = props
       const markdownPath = dirname(path)
       const srcPath = resolve(markdownPath, src).replace(/\\/g, '/')
 
@@ -30,13 +30,14 @@ export function markdownDemoTagBlock(md: MarkdownRenderer) {
         return defaultRender!(tokens, idx, options, env, self)
       }
 
-      const demoScripts = generator.vue.generateDemoComponent(md, env, {
+      const demoScripts = generator.generateDemoComponent(md, env, {
         code: fs.readFileSync(srcPath, 'utf-8'),
         path: resolve(markdownPath, props.src),
         props: otherProps,
         attr: attrs,
         jsAttr: attrsInJs,
         desc,
+        type,
       })
 
       return demoScripts

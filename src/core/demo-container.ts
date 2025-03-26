@@ -21,7 +21,7 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
         if (!props.src)
           throw new Error('src prop is required')
 
-        const { src, desc, attrs, attrsInJs, ...otherProps } = props
+        const { src, desc, attrs, attrsInJs, type = 'vue', ...otherProps } = props
 
         const markdownPath = dirname(env.path)
         const srcPath = resolve(markdownPath, src).replace(/\\/g, '/')
@@ -29,17 +29,18 @@ export function markdownDemoContainer(md: MarkdownRenderer) {
         if (!fs.existsSync(srcPath))
           throw new Error(`rendering ${env.path}: ${srcPath} does not exist`)
 
-        return generator.vue.generateDemoContainerPrefix(md, env, {
+        return generator.generateDemoContainerPrefix(md, env, {
           code: fs.readFileSync(srcPath, 'utf-8'),
           path: resolve(markdownPath, props.src),
           props: otherProps,
           attr: attrs,
           jsAttr: attrsInJs,
           desc,
+          type,
         })
       }
       else {
-        return generator.vue.generateDemoContainerSuffix()
+        return generator.generateDemoContainerSuffix()
       }
     },
   })

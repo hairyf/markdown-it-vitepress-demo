@@ -10,6 +10,7 @@
 
 - ✨ Use the `<demo>` or `container` in Markdown to reference a demo container.
 - ♾️ Automatically convert TS code and provide JS demo code.
+- 👽️ Support Vue, React, JS, TS and HTML demo block.
 - 📝 Use Markdown syntax by you demo block description.
 - 💡 Support [twoslash](https://shiki.style/packages/vitepress) syntax highlighting.
 - 📦️ Supports multiple [presets](#presets), ready to use out of the box.
@@ -54,14 +55,6 @@ In addition, you can pass the `attrs` parameter to `props`, so you can utilize t
 <demo src="../demo.vue" attrs="{4}" />
 ```
 
-Other `props` will not be processed and will be directly passed to the `<demo-container>` component. For example, you can customize whether the code is expanded using the `prop`:
-
-```markdown
-<demo src="../demo.vue" expand />
-```
-
-> however, it is important to note that `<demo>` is not strictly a component and cannot handle excessively complex custom `props`, such as `v-bind`.
-
 ## Twoslash
 
 `vitepress-plugin-demo` also supports [vitepress/twoslash](https://shiki.style/packages/vitepress) syntax highlighting. You can use the `twoslash` tag in Markdown to reference a demo container. For example:
@@ -70,14 +63,29 @@ Other `props` will not be processed and will be directly passed to the `<demo-co
 <demo src="../demo.vue" title="Demo block" desc="use demo" twoslash />
 ```
 
+## React
+
+`vitepress-plugin-demo` also supports React demo blocks. You can use the `react` tag in Markdown to reference a demo container.
+
+```sh
+npm install react react-dom --save-dev
+```
+
+import your React component:
+
+```markdown
+<demo type="react" src="../demo.tsx" title="Demo block" desc="use demo" />
+```
+
 ## Usage
 
 ```js
+import { demoMdPlugin } from 'vitepress-plugin-demo'
 // .vitepress/config.js
 export default defineConfig({
   markdown: {
     config(md) {
-      md.use(require('vitepress-plugin-demo'))
+      md.use(demoMdPlugin)
     },
   },
 })
@@ -124,7 +132,21 @@ export default {
       app.use(NaiveUI)
     }
     app.use(TwoslashFloating)
-    app.use(NaiveUIContainer)
+    app.use(NaiveUIContainer, {
+      github: 'you github blob url',
+      codeeditor: {
+        editor: ['stackblitz', 'codesandbox'],
+        globals: {
+          package: {/* ... */},
+          files: {/* ... */},
+          opens: ['App.vue']
+        },
+        resolve(props) {
+          const code = props.tsCode || props.jsCode
+          return { /* cover global config */ }
+        }
+      },
+    })
   },
 }
 ```
@@ -165,6 +187,21 @@ const sfcCode = computed(() => decodeURIComponent(props.tsCode || props.jsCode))
     <slot name="md:sfc-js" />
   </div>
 </template>
+```
+
+Other `props` will not be processed and will be directly passed to the `<demo-container>` component. For example, you can customize whether the code is expanded using the `prop`:
+
+```markdown
+<demo src="../demo.vue" expand />
+```
+
+> however, it is important to note that `<demo>` is not strictly a component and cannot handle excessively complex custom `props`, such as `v-bind`.
+
+```ts
+const props = defineProps<{
+  // ...
+  expand: boolean
+}>()
 ```
 
 ## Metadata

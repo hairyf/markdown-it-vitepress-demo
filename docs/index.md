@@ -14,11 +14,38 @@ hero:
 ---
 
 <demo
-  title="Print Hello World"
+  title="Print Hello World By Vue"
   desc="This is a simple example of a Vue component that prints 'Hello World' to the console."
   src="./index.vue"
   attrs="{5}"
   attrs-in-js="{4}"
+  twoslash
+  expand
+/>
+
+<demo
+  title="Print Hello World By React"
+  desc="This is a simple example of a React component that prints 'Hello World' to the console."
+  src="./index.tsx"
+  type="react"
+  twoslash
+  expand
+/>
+
+<demo
+  title="Print Hello World By HTML"
+  desc="This is a simple example of a html that prints 'Hello World' to the console."
+  src="./index.html"
+  attrs="{7}"
+  expand
+/>
+
+<demo
+  title="Print Hello World By Code"
+  desc="This is a simple example of a code that prints 'Hello World' to the console."
+  src="./index.ts"
+  attrs="{2}"
+  js-attrs="{1}"
   twoslash
   expand
 />
