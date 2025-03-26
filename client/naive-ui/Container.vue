@@ -48,7 +48,7 @@ const jsCode = computed(() => decodeURIComponent(props.jsCode))
 
 const isUsingTs = computed(() => !!props.tsCode)
 
-const sfcCode = computed(() => isUsingTs.value ? tsCode.value : jsCode.value)
+const code = computed(() => isUsingTs.value ? tsCode.value : jsCode.value)
 
 const showLanguage = ref(isUsingTs.value ? 'ts' : 'js')
 
@@ -62,12 +62,12 @@ const editors = codeeditor?.$editors || []
       <EditInStackblitzButton
         v-if="editors.includes('stackblitz')"
         :tooltip="t('editInStackblitz')"
-        @click="codeeditor?.open('stackblitz', $props)"
+        @click="codeeditor?.open('stackblitz', { ...$props, code })"
       />
       <EditInCodeSandboxButton
         v-if="editors.includes('codesandbox')"
         :tooltip="t('editInCodeSandbox')"
-        @click="codeeditor?.open('codesandbox', $props)"
+        @click="codeeditor?.open('codesandbox', { ...$props, code })"
       />
       <EditInGithubButton
         v-if="github || $github"
@@ -75,7 +75,7 @@ const editors = codeeditor?.$editors || []
         :tooltip="t('editInGithub')"
         :github="github || $github"
       />
-      <CopyCodeButton :code="sfcCode" :success-text="t('copySuccess')" :tooltip="t('copyCode')" />
+      <CopyCodeButton :code="code" :success-text="t('copySuccess')" :tooltip="t('copyCode')" />
       <ExpandToggleButton :tooltip="!visible ? t('show') : t('hide')" @click="visible = !visible" />
     </template>
     <n-p v-if="$slots['md:desc']" class="desc">
