@@ -16,11 +16,7 @@
 - 📦️ Supports multiple [presets](#presets), ready to use out of the box.
 - 🎨 Customize the demo container to suit your needs.
 
-## Install
-
-```bash
-npm install vitepress-plugin-demo --save-dev
-```
+***
 
 `vitepress-plugin-demo` is a `markdown-it` plugin specifically designed for Vitepress demos. It converts code blocks in Markdown into references to the `<demo-container>` component. It does not generate UI itself but serves as a plugin for creating demo containers.
 
@@ -75,6 +71,12 @@ import your React component:
 
 ```markdown
 <demo type="react" src="../demo.tsx" title="Demo block" desc="use demo" />
+```
+
+## Install
+
+```bash
+npm install vitepress-plugin-demo --save-dev
 ```
 
 ## Usage
