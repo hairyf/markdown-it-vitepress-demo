@@ -63,6 +63,7 @@
     "@types/markdown-it-container": "catalog:",
     "@types/node": "catalog:types",
     "@types/react": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     "bumpp": "catalog:cli",
     "esbuild-plugin-file-path-extensions": "catalog:",
     "eslint": "catalog:cli",

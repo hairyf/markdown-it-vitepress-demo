@@ -8,6 +8,7 @@ catalog:
   '@types/fs-extra': ^11.0.4
   '@types/markdown-it-container': ^2.0.10
   '@types/react': ^19.0.12
+  '@vitejs/plugin-vue': ^5.2.3
   '@vue/compiler-core': ^3.5.13
   '@vue/compiler-sfc': ^3.5.13
   codeeditor-kit: ^0.3.0
