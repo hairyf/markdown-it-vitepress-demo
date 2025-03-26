@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Codeeditor } from 'codeeditor-kit'
+import type { InstallComponent } from './components/InstallProvider'
 import { computed, getCurrentInstance, ref } from 'vue'
 import CopyCodeButton from './components/CopyCodeButton.vue'
 import EditInCodeSandboxButton from './components/EditInCodeSandboxButton.vue'
@@ -18,6 +19,7 @@ const props = defineProps<{
   expand?: boolean
   github?: string
   codeeditor?: Codeeditor
+  install?: InstallComponent[]
 }>()
 
 const visible = ref(props.expand ?? false)
@@ -57,7 +59,7 @@ const editors = codeeditor?.$editors || []
 </script>
 
 <template>
-  <NaiveContainer :id="metadata.fileName" :title="title">
+  <NaiveContainer :id="metadata.fileName" :install="install" :title="title">
     <template #header-extra>
       <EditInStackblitzButton
         v-if="editors.includes('stackblitz')"

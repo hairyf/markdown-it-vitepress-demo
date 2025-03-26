@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import type { InstallComponent, InstallProvider } from './InstallProvider'
 import { darkTheme, lightTheme } from 'naive-ui'
 import { useData } from 'vitepress'
 
 const props = defineProps<{
+  install?: InstallComponent[]
   title: string
   id: string
 }>()
@@ -16,33 +18,35 @@ function handleTitleClick() {
 
 <template>
   <n-config-provider :theme="isDark ? darkTheme : lightTheme">
-    <n-message-provider>
-      <n-card
-        :id="id"
-        class="demo-card"
-        :segmented="{
-          footer: true,
-        }"
-        footer-style="padding: 0;"
-      >
-        <template #header>
-          <span style="cursor: pointer" @click="handleTitleClick">
-            {{ title }}
-          </span>
-        </template>
-        <template #header-extra>
-          <div style="display: flex; gap: 6px">
-            <slot name="header-extra" />
+    <InstallProvider>
+      <n-message-provider>
+        <n-card
+          :id="id"
+          class="demo-card"
+          :segmented="{
+            footer: true,
+          }"
+          footer-style="padding: 0;"
+        >
+          <template #header>
+            <span style="cursor: pointer" @click="handleTitleClick">
+              {{ title }}
+            </span>
+          </template>
+          <template #header-extra>
+            <div style="display: flex; gap: 6px">
+              <slot name="header-extra" />
+            </div>
+          </template>
+          <div class="demo-content">
+            <slot />
           </div>
-        </template>
-        <div class="demo-content">
-          <slot />
-        </div>
-        <template #footer>
-          <slot name="footer" />
-        </template>
-      </n-card>
-    </n-message-provider>
+          <template #footer>
+            <slot name="footer" />
+          </template>
+        </n-card>
+      </n-message-provider>
+    </InstallProvider>
   </n-config-provider>
 </template>
 

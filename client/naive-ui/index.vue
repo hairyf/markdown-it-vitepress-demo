@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Codeeditor } from 'codeeditor-kit'
+import type { InstallComponent } from './components/InstallProvider'
 import Container from './Container.vue'
 
 const props = defineProps<{
@@ -10,6 +11,7 @@ const props = defineProps<{
   title: string
   expand?: boolean
   github?: string
+  install?: InstallComponent[]
   codeeditor?: Codeeditor
 }>()
 </script>
