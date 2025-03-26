@@ -18,8 +18,8 @@ function handleTitleClick() {
 
 <template>
   <n-config-provider :theme="isDark ? darkTheme : lightTheme">
-    <InstallProvider>
-      <n-message-provider>
+    <n-message-provider>
+      <InstallProvider :install="props.install">
         <n-card
           :id="id"
           class="demo-card"
@@ -45,8 +45,8 @@ function handleTitleClick() {
             <slot name="footer" />
           </template>
         </n-card>
-      </n-message-provider>
-    </InstallProvider>
+      </InstallProvider>
+    </n-message-provider>
   </n-config-provider>
 </template>
 
