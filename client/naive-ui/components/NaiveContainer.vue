@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import type { InstallComponent, InstallProvider } from './InstallProvider'
+import type { InstallComponent } from './InstallProvider'
 import { darkTheme, lightTheme } from 'naive-ui'
 import { useData } from 'vitepress'
+import { InstallProvider } from './InstallProvider'
 
 const props = defineProps<{
   install?: InstallComponent[]
