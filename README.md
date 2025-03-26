@@ -140,14 +140,14 @@ The `demo-container` component will receive relevant information about the demo,
 import { computed } from 'vue'
 
 const props = defineProps<{
-  sfcTsCode: string
-  // if using ts, sfcJsCode will transform the to js
-  sfcJsCode: string
+  tsCode: string
+  // if using ts, jsCode will transform the to js
+  jsCode: string
   title: string
   metadata: object
 }>()
 
-const sfcCode = computed(() => decodeURIComponent(props.sfcTsCode || props.sfcJsCode))
+const sfcCode = computed(() => decodeURIComponent(props.tsCode || props.jsCode))
 </script>
 
 <template>
@@ -174,8 +174,8 @@ The `demo-container` component will receive relevant information about the demo.
 ```html
 <script lang="ts" setup>
 const props = defineProps<{
-  sfcTsCode: string
-  sfcJsCode: string
+  tsCode: string
+  jsCode: string
   title: string
   // metadata returns information about the demo during build (absolutePath, relativePath, fileName)
   metadata: object
@@ -198,8 +198,8 @@ You can define the parameters for CodeSandbox by using `codesandbox/lib/api/defi
 import { getParameters } from 'codesandbox/lib/api/define'
 
 const props = defineProps<{
-  sfcTsCode: string
-  sfcJsCode: string
+  tsCode: string
+  jsCode: string
   // ...
 }>()
 
@@ -212,7 +212,7 @@ const parameters = computed(() => {
         content: { dependencies: { vue: 'latest' } },
       },
       'index.html': { content: `<div id="app"></div>` },
-      'App.vue': { content: decodeURIComponent(props.sfcJsCode) },
+      'App.vue': { content: decodeURIComponent(props.jsCode) },
       'src/main.js': { content: '...' },
     },
   })

@@ -10,9 +10,9 @@ import NaiveContainer from './components/NaiveContainer.vue'
 import { i18n } from './composables'
 
 const props = defineProps<{
-  sfcTsCode: string
-  // if using ts, sfcJsCode will transform the to js
-  sfcJsCode: string
+  tsCode: string
+  // if using ts, jsCode will transform the to js
+  jsCode: string
   metadata: Record<string, any>
   title: string
   expand?: boolean
@@ -43,12 +43,12 @@ const { t } = i18n({
   },
 })
 const instance = getCurrentInstance()
-const sfcTsCode = computed(() => decodeURIComponent(props.sfcTsCode))
-const sfcJsCode = computed(() => decodeURIComponent(props.sfcJsCode))
+const tsCode = computed(() => decodeURIComponent(props.tsCode))
+const jsCode = computed(() => decodeURIComponent(props.jsCode))
 
-const isUsingTs = computed(() => !!props.sfcTsCode)
+const isUsingTs = computed(() => !!props.tsCode)
 
-const sfcCode = computed(() => isUsingTs.value ? sfcTsCode.value : sfcJsCode.value)
+const sfcCode = computed(() => isUsingTs.value ? tsCode.value : jsCode.value)
 
 const showLanguage = ref(isUsingTs.value ? 'ts' : 'js')
 
